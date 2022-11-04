@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "The Third Can",
+  "version": "0.0.0",
+
+  "description": "A suite of tools to improve the user experience on https://twocansandstring.com",
+  "homepage_url": "https://github.com/aprzn123/TheThirdCan",
+  "icons": {
+    "48": "favicon.ico"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "thirdcan@novaberman.com"
+    }
+  },
+
+  "permissions": [
+    "storage"
+  ],
+
+  "browser_action": {
+    "default_icon": "favicon.ico",
+    "default_title": "The Third Can",
+    "default_popup": "popup/config.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://twocansandstring.com/answer"],
+      "js": ["js/answer.js"]
+    },
+    {
+      "matches": ["*://twocansandstring.com/*"],
+      "js": ["js/thirdcan.js"]
+    }
+  ],
+
+  "web_accessible_resources": ["injected/*"]
+}

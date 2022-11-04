@@ -1,0 +1,13 @@
+body {
+  background-color: #2e3440;
+  color: #d8dee9;
+  font-family: Lato, sans-serif;
+}
+
+#options {
+  display: none;
+}
+
+#loading {
+  display: inline;
+}
