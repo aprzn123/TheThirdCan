@@ -1,5 +1,5 @@
 let settings = {
-  "skipConfirm": false
+  "skipConfirm": 0
 };
 
 let results = browser.storage.sync.get(settings);

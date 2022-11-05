@@ -6,8 +6,13 @@
 </head>
 <body>
   <div id="options">
-    <input id="skip-confirmation" type="checkbox" />
-    <label for="skip-confirmation">Confirm before skipping</label>
+    <p>Confirm dialog when skipping:</p>
+    <input id="neverSkipConfirm" type="radio" name="skipConfirm" value="neverSkipConfirm">
+    <label for="neverSkipConfirm">Never</label>
+    <input id="textSkipConfirm" type="radio" name="skipConfirm" value="textSkipConfirm">
+    <label for="textSkipConfirm">When the answer box has text</label>
+    <input id="alwaysSkipConfirm" type="radio" name="skipConfirm" value="alwaysSkipConfirm">
+    <label for="alwaysSkipConfirm">Always</label>
     <hr />
     <button id="submit">Save Settings</button>
   </div>

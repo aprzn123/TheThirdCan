@@ -1,14 +1,15 @@
 let settings = {
-  "skipConfirm": false
+  "skipConfirm": 0
 };
 
-function enableSkipConfirm() {
+function enableSkipConfirm(always) {
   let s = document.createElement("script");
-  s.src = browser.runtime.getURL("injected/skipConfirm.js");
+  if (always) { s.src = browser.runtime.getURL("injected/alwaysSkipConfirm.js"); }
+  else { s.src = browser.runtime.getURL("injected/textSkipConfirm.js"); }
   document.body.appendChild(s);
 }
 
 let results = browser.storage.sync.get(settings);
 results.then((cfg) => {
-  if (cfg.skipConfirm) {enableSkipConfirm();}
+  if (cfg.skipConfirm) {enableSkipConfirm(cfg.skipConfirm === 2);}
 });

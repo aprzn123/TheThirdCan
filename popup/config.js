@@ -1,10 +1,12 @@
 const loading = document.getElementById("loading");
 const options = document.getElementById("options");
-const skipConfirm = document.getElementById("skip-confirmation");
+const neverSkipConfirm = document.getElementById("neverSkipConfirm");
+const textSkipConfirm = document.getElementById("textSkipConfirm");
+const alwaysSkipConfirm = document.getElementById("alwaysSkipConfirm");
 const submit = document.getElementById("submit");
 
 let settings = {
-  "skipConfirm": false
+  "skipConfirm": 0 // 0: never | 1: with text | 2: always
 };
 
 function showOptions() {
@@ -16,12 +18,15 @@ let results = browser.storage.sync.get(settings);
 
 results.then((value) => {
   console.log(value);
-  skipConfirm.checked = value.skipConfirm;
+  if (value.skipConfirm === 0) {neverSkipConfirm.checked = true;}
+  else if (value.skipConfirm === 1) {textSkipConfirm.checked = true;}
+  else if (value.skipConfirm === 2) {alwaysSkipConfirm.checked = true;}
+  else {console.error(`skipConfirm was ${value.skipConfirm}, which is neither 0, 1, nor 2`);}
   showOptions();
 });
 
 submit.addEventListener("click", () => {
   browser.storage.sync.set({
-    "skipConfirm": skipConfirm.checked
+    "skipConfirm": textSkipConfirm.checked * 1 + alwaysSkipConfirm.checked * 2
   });
 });
