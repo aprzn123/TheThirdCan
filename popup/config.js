@@ -5,17 +5,15 @@ const textSkipConfirm = document.getElementById("textSkipConfirm");
 const alwaysSkipConfirm = document.getElementById("alwaysSkipConfirm");
 const submit = document.getElementById("submit");
 
-let settings = {
-  "skipConfirm": 0 // 0: never | 1: with text | 2: always
-};
 
 function showOptions() {
   loading.style.display = "none";
   options.style.display = "inline";
 }
 
-let results = browser.storage.sync.get(settings);
-
+let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
+    .then((response) => response.json())
+    .then((settings) => browser.storage.sync.get(settings));
 results.then((value) => {
   console.log(value);
   if (value.skipConfirm === 0) {neverSkipConfirm.checked = true;}

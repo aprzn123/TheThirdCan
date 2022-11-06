@@ -1,7 +1,3 @@
-let settings = {
-  "skipConfirm": 0
-};
-
 function enableSkipConfirm(always) {
   let s = document.createElement("script");
   if (always) { s.src = browser.runtime.getURL("injected/alwaysSkipConfirm.js"); }
@@ -9,7 +5,9 @@ function enableSkipConfirm(always) {
   document.body.appendChild(s);
 }
 
-let results = browser.storage.sync.get(settings);
+let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
+    .then((response) => response.json())
+    .then((settings) => browser.storage.sync.get(settings));
 results.then((cfg) => {
   if (cfg.skipConfirm) {enableSkipConfirm(cfg.skipConfirm === 2);}
 });

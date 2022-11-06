@@ -16,7 +16,8 @@
   },
 
   "permissions": [
-    "storage"
+    "storage",
+    "https://novaberman.com/*"
   ],
 
   "browser_action": {
@@ -27,12 +28,12 @@
 
   "content_scripts": [
     {
-      "matches": ["https://twocansandstring.com/answer"],
-      "js": ["js/answer.js"]
+      "matches": ["*://twocansandstring.com/answer"],
+      "js": ["/js/answer.js"]
     },
     {
-      "matches": ["*://twocansandstring.com/*"],
-      "js": ["js/thirdcan.js"]
+      "matches": ["*://twocansandstring.com/"],
+      "js": ["/js/home.js"]
     }
   ],
 
