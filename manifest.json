@@ -34,6 +34,14 @@
     {
       "matches": ["*://twocansandstring.com/"],
       "js": ["/js/home.js"]
+    },
+    {
+      "matches": ["*://twocansandstring.com/*"],
+      "js": ["js/thirdcan.js"]
+    },
+    {
+      "matches": ["*://twocansandstring.com/forum/*"],
+      "js": ["js/forum.js"]
     }
   ],
 
