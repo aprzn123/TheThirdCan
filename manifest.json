@@ -17,7 +17,7 @@
 
   "permissions": [
     "storage",
-    "https://novaberman.com/*"
+    "https://novaberman.com/api/*"
   ],
 
   "browser_action": {
