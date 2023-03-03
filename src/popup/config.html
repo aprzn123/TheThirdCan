@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="config.css" />
+  <script type="application/javascript" src="browser-polyfill.min.js"></script>
+  <script src="config.js" defer></script>
+</head>
+<body>
+  <div id="options">
+    Confirm dialog when skipping:<br />
+    <input id="neverSkipConfirm" type="radio" name="skipConfirm" value="neverSkipConfirm">
+    <label for="neverSkipConfirm">Never</label>
+    <br />
+    <input id="textSkipConfirm" type="radio" name="skipConfirm" value="textSkipConfirm">
+    <label for="textSkipConfirm">When the answer box has text</label>
+    <br />
+    <input id="alwaysSkipConfirm" type="radio" name="skipConfirm" value="alwaysSkipConfirm">
+    <label for="alwaysSkipConfirm">Always</label>
+    <br />
+    <hr />
+    <input id="showPronouns" type="checkbox" name="showPronouns">
+    <label for="showPronouns">Show pronouns in forum</label>
+    <br />
+    <input id="displayLatex" type="checkbox" name="displayLatex">
+    <label for="displayLatex">Render LaTeX equations in the forum</label>
+    <hr />
+    <button id="submit">Save Settings</button>
+  </div>
+  <div id="loading"><em>loading...</em></div>
+</body>
+</html>
