@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "The Third Can",
   "version": "0.0.0",
 
@@ -16,11 +16,11 @@
   },
 
   "permissions": [
-    "storage",
-    "https://novaberman.com/api/*"
+    "storage"
   ],
 
-  "browser_action": {
+
+  "action": {
     "default_icon": "favicon.ico",
     "default_title": "The Third Can",
     "default_popup": "popup/config.html"
@@ -29,21 +29,26 @@
   "content_scripts": [
     {
       "matches": ["*://twocansandstring.com/answer"],
-      "js": ["/js/answer.js"]
+      "js": ["/js/browser-polyfill.min.js", "/js/answer.js"]
     },
     {
       "matches": ["*://twocansandstring.com/"],
-      "js": ["/js/home.js"]
+      "js": ["/js/browser-polyfill.min.js", "/js/home.js"]
     },
     {
       "matches": ["*://twocansandstring.com/*"],
-      "js": ["js/thirdcan.js"]
+      "js": ["/js/browser-polyfill.min.js", "js/thirdcan.js"]
     },
     {
       "matches": ["*://twocansandstring.com/forum/*"],
-      "js": ["js/forum.js"]
+      "js": ["/js/browser-polyfill.min.js", "js/forum.js"]
     }
   ],
 
-  "web_accessible_resources": ["injected/*"]
+  "web_accessible_resources": [
+    {
+      "resources": ["injected/*"],
+      "matches": ["*://twocansandstring.com/*"]
+    }
+  ]
 }
