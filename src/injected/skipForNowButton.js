@@ -11,7 +11,7 @@
   const userID = Number(attr.substring(18, attr.length - 1));
 
   function shouldSkip() {
-    const cfgStr = window.localStorage.getItem("cfg");
+    const cfgStr = window.sessionStorage.getItem("ttcConfigState");
     const cfg = JSON.parse(cfgStr);
     if (cfg.skipConfirm) {
       // check if user enabled skip confirmation. if so, prompt for confirmation
