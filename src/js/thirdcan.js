@@ -1,6 +1,5 @@
-const ttcSettings = fetch(browser.runtime.getURL("injected/default_settings.json"))
+fetch(browser.runtime.getURL("injected/default_settings.json"))
     .then((response) => response.json())
-    .then((settings) => browser.storage.sync.get(settings));
-ttcSettings.then((cfg) => {
-  window.localStorage.setItem("cfg", JSON.stringify(cfg));
-});
+    .then((settings) => browser.storage.sync.get(settings))
+    .then((settings) => JSON.stringify(settings))
+    .then((state) => window.sessionStorage.setItem("ttcConfigState", state));
