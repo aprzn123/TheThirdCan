@@ -7,7 +7,7 @@ const skipForNow = document.getElementById("skipForNow");
 const submit = document.getElementById("submit");
 const showPronouns = document.getElementById("showPronouns");
 const displayLatex = document.getElementById("displayLatex");
-const useHotKeys = document.getElementById("useHotKeys");
+const useHotkeys = document.getElementById("useHotkeys");
 
 
 function showOptions() {
@@ -40,6 +40,6 @@ submit.addEventListener("click", () => {
     "skipForNow": skipForNow.checked,
     "showPronouns": showPronouns.checked,
     "displayLatex": displayLatex.checked,
-    "useHotkeys": displayLatex.checked
+    "useHotkeys": useHotkeys.checked
   });
 });

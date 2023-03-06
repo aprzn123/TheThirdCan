@@ -21,8 +21,8 @@ let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
     .then((settings) => browser.storage.sync.get(settings));
 results.then((cfg) => {
   
-  if (cfg.useuseHotKeys) {
-    enableHotKeys(true);
+  if (cfg.useHotkeys) {
+    enableHotKeys();
   }
   if (cfg.skipConfirm) {enableSkipConfirm(cfg.skipConfirm === 2);}
   if (cfg.skipForNow) {
