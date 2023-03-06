@@ -4,6 +4,7 @@ const neverSkipConfirm = document.getElementById("neverSkipConfirm");
 const textSkipConfirm = document.getElementById("textSkipConfirm");
 const alwaysSkipConfirm = document.getElementById("alwaysSkipConfirm");
 const skipForNow = document.getElementById("skipForNow");
+const skipSavedQuestions = document.getElementById("skipSavedQuestions");
 const submit = document.getElementById("submit");
 const showPronouns = document.getElementById("showPronouns");
 const displayLatex = document.getElementById("displayLatex");
@@ -25,6 +26,7 @@ results.then((value) => {
   else {console.error(`skipConfirm was ${value.skipConfirm}, which is neither 0, 1, nor 2`);}
 
   skipForNow.checked = value.skipForNow;
+  skipSavedQuestions.checked = value.skipSavedQuestions;
 
   showPronouns.checked = value.showPronouns,
   displayLatex.checked = value.displayLatex,
@@ -36,6 +38,7 @@ submit.addEventListener("click", () => {
   browser.storage.sync.set({
     "skipConfirm": textSkipConfirm.checked * 1 + alwaysSkipConfirm.checked * 2,
     "skipForNow": skipForNow.checked,
+    "skipSavedQuestions": skipSavedQuestions.checked,
     "showPronouns": showPronouns.checked,
     "displayLatex": displayLatex.checked
   });

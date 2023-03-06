@@ -27,14 +27,14 @@
       button.innerText = "Remove";
       button.classList.add("red");
       button.onclick = () => {
-        let shouldSkip = false;
+        let shouldSkip = true;
         if (cfg.skipConfirm ?? 0 > 0) {
           shouldSkip = confirm("Are you sure you want to skip this question for now?");
         }
         if (shouldSkip) {
           fetch(`https://twocansandstring.com/api/answer/${id}/skip/${question}/1/0`);
+          questionContainer.remove();
         }
-        questionContainer.remove();
       };
       questionContainer.append(button);
     });

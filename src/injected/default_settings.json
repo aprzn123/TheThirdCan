@@ -1,6 +1,7 @@
 {
   "skipConfirm": 0,
   "skipForNow": false,
+  "skipSavedQuestions": true,
   "showPronouns": true,
   "displayLatex": true
 }
