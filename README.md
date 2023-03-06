@@ -10,7 +10,8 @@ Chrome: Coming soon!
 - Confirm dialogs everywhere (well only some places for now, but more to come)
 - LaTeX rendering
 - Pronouns
-- Temporarily skip questions with the old Skip for Now button (coming soon)
+- Temporarily skip questions with the old Skip for Now button
+- Hotkeys for common actions on the answer page
 
 ## Installation From Source
 If you would like to install the development version of The Third Can for testing purposes, then download or clone this repository, and then follow these instructions, depending on your browser.
