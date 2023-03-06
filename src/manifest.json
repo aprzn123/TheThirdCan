@@ -42,6 +42,10 @@
     {
       "matches": ["*://twocansandstring.com/forum/*"],
       "js": ["/js/browser-polyfill.min.js", "js/forum.js"]
+    },
+    {
+      "matches": ["*://twocansandstring.com/savedquestions"],
+      "js": ["/js/browser-polyfill.min.js", "js/savedquestions.js"]
     }
   ],
 
