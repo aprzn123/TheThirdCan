@@ -16,19 +16,7 @@ body {
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.382);
 }
-
-.info {
-  background-color: #e0e0e0;
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  font-size: 0.9em;
-  color: #2e3440;
-  text-align: center;
-}
-
 
 .tooltip .tooltiptext {
   white-space: pre-line;
@@ -42,8 +30,8 @@ body {
   position: absolute;
   z-index: 1;
   padding: 10px;
+  font-size: 0.8em;
 }
-
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
