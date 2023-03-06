@@ -12,3 +12,27 @@ body {
 #loading {
   display: inline;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  white-space: pre-line;
+  visibility: hidden;
+  width: 160px;
+  background-color: rgba(46, 44, 44, 0.896);
+  color: #fff;
+  text-align: left;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  padding: 10px;
+  font-size: 0.8em;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

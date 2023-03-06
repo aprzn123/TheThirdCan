@@ -8,6 +8,7 @@ const skipSavedQuestions = document.getElementById("skipSavedQuestions");
 const submit = document.getElementById("submit");
 const showPronouns = document.getElementById("showPronouns");
 const displayLatex = document.getElementById("displayLatex");
+const useHotkeys = document.getElementById("useHotkeys");
 
 
 function showOptions() {
@@ -30,6 +31,7 @@ results.then((value) => {
 
   showPronouns.checked = value.showPronouns,
   displayLatex.checked = value.displayLatex,
+  useHotkeys.checked = value.useHotkeys;
 
   showOptions();
 });
@@ -40,6 +42,7 @@ submit.addEventListener("click", () => {
     "skipForNow": skipForNow.checked,
     "skipSavedQuestions": skipSavedQuestions.checked,
     "showPronouns": showPronouns.checked,
-    "displayLatex": displayLatex.checked
+    "displayLatex": displayLatex.checked,
+    "useHotkeys": useHotkeys.checked
   });
 });
