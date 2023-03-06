@@ -2,5 +2,6 @@
   "skipConfirm": 0,
   "skipForNow": false,
   "showPronouns": true,
-  "displayLatex": true
+  "displayLatex": true,
+  "useHotkeys" : false
 }

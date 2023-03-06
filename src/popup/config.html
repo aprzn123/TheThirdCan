@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="config.css" />
   <script type="application/javascript" src="browser-polyfill.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="config.js" defer></script>
 </head>
 <body>
@@ -17,10 +18,23 @@
     <br />
     <input id="alwaysSkipConfirm" type="radio" name="skipConfirm" value="alwaysSkipConfirm">
     <label for="alwaysSkipConfirm">Always</label>
-    <br />
+    <br />  
     <hr />
     <input id="skipForNow" type="checkbox" name="skipForNow">
     <label for="skipForNow">Enable "Skip for now" button</label>
+    <br />
+    <input id="useHotkeys" type="checkbox" name="useHotkeys">
+    <label for="useHotkeys">Use hotkeys
+      <div class="tooltip">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+        <span class="tooltiptext">
+          Hotkey layout 
+          Ctrl + enter : answer 
+          Ctrl + s : save 
+          Ctrl + m : skip 
+        </span>
+      </div>
+     </label>
     <br />
     <hr />
     <input id="showPronouns" type="checkbox" name="showPronouns">
@@ -29,6 +43,8 @@
     <input id="displayLatex" type="checkbox" name="displayLatex">
     <label for="displayLatex">Render LaTeX equations in the forum</label>
     <hr />
+
+
     <button id="submit">Save Settings</button>
   </div>
   <div id="loading"><em>loading...</em></div>
