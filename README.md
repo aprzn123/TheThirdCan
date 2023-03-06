@@ -1,8 +1,13 @@
 # TheThirdCan
 A browser extension designed to improve https://twocansandstring.com
 
+## Installation
+Firefox: [Firefox Add-ons Page](https://addons.mozilla.org/en-US/firefox/addon/the-third-can/)
+
+Chrome: Coming soon!
+
 ## Installation From Source
-If you would like to install the development version of The Third Can for testing purposes, that is an option. Download or clone this repository, and then follow these instructions, depending on your browser.
+If you would like to install the development version of The Third Can for testing purposes, then download or clone this repository, and then follow these instructions, depending on your browser.
 
 ### Firefox
 1. Go to `about:debugging#/runtime/this-firefox` in the URL bar
