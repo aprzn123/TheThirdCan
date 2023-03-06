@@ -6,6 +6,12 @@ Firefox: [Firefox Add-ons Page](https://addons.mozilla.org/en-US/firefox/addon/t
 
 Chrome: Coming soon!
 
+## Features
+- Confirm dialogs everywhere (well only some places for now, but more to come)
+- LaTeX rendering
+- Pronouns
+- Temporarily skip questions with the old Skip for Now button (coming soon)
+
 ## Installation From Source
 If you would like to install the development version of The Third Can for testing purposes, then download or clone this repository, and then follow these instructions, depending on your browser.
 
