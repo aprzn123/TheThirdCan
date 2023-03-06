@@ -3,13 +3,16 @@
   // need to access the user id for whatever reason but can't
   function getUserId() {
     return new Promise((resolve, reject) => {
+      // timeout after 5000 seconds
+      const timeout = window.setTimeout(5000, () => reject("Unable to find user ID."));
+
       TC.Legacy.getPage("/answer", (html) => {
         html = html.substring(html.indexOf("TC.QA.Answer.init"));
         html = html.substring(html.indexOf("(") + 1);
         html = html.substring(0, html.indexOf(")"));
+        window.clearTimeout(timeout);
         resolve(html);
       });
-      //reject("Unable to find user ID.");
     });
   } 
 
