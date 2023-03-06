@@ -27,8 +27,10 @@
       // question IDs are always the last 7 digits in the URL.
       let question = a.href.substring(a.href.length - 7);
       let button = document.createElement("button");
-      button.innerText = "Remove";
+      button.innerText = "X";
       button.classList.add("red");
+      button.style.marginRight = "8px";
+      button.style.width = "2em";
       button.onclick = () => {
         let shouldSkip = true;
         if (cfg.skipConfirm ?? 0 > 0) {
@@ -39,7 +41,7 @@
           questionContainer.remove();
         }
       };
-      questionContainer.append(button);
+      questionContainer.insertBefore(button, a);
     });
   }
 
