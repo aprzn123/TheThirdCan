@@ -12,7 +12,7 @@ document.addEventListener("keydown", function (event) {
     saveButton.click();
   }
 
-  else if (event.ctrlKey && event.key == "Backspace") {
+  else if (event.ctrlKey && event.key == "m") {
     skipButton.click();
   }
 
