@@ -5,6 +5,11 @@ function enableSkipConfirm(always) {
   document.body.appendChild(s);
 }
 
+function enableHotKeys(always) {
+  let s = document.createElement("script");
+  if (always) { s.src = browser.runtime.getURL("injected/hotkeys.js"); }
+  document.body.appendChild(s);
+}
 function enableSkipForNow() {
   let s = document.createElement("script");
   s.src = browser.runtime.getURL("injected/skipForNowButton.js");
@@ -15,6 +20,7 @@ let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
     .then((response) => response.json())
     .then((settings) => browser.storage.sync.get(settings));
 results.then((cfg) => {
+  enableHotKeys(true)
   if (cfg.skipConfirm) {enableSkipConfirm(cfg.skipConfirm === 2);}
   if (cfg.skipForNow) {
     enableSkipForNow();
