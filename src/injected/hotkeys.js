@@ -7,11 +7,12 @@ document.addEventListener("keydown", function(event) {
         answerButton.click();
     }
 
-    else if (event.key == "s") {
+    else if (event.ctrlKey && event.key == "s") {
+        event.preventDefault();
         saveButton.click();
     }
 
-    else if (event.key == "Backspace") {
+    else if (event.ctrlKey && event.key == "Backspace") {
         skipButton.click();
     }
 
