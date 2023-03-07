@@ -1,8 +1,5 @@
 function enableSkipConfirm(always) {
-  let s = document.createElement("script");
-  if (always) { s.src = browser.runtime.getURL("injected/alwaysSkipConfirm.js"); }
-  else { s.src = browser.runtime.getURL("injected/textSkipConfirm.js"); }
-  document.body.appendChild(s);
+  third.InjectScript(always ? "alwaysSkipConfirm.js" : "textSkipConfirm.js");
 }
 
 function enableHotKeys() {
@@ -11,12 +8,14 @@ function enableHotKeys() {
   document.body.appendChild(s);
 }
 function enableSkipForNow() {
-  let s = document.createElement("script");
-  s.src = browser.runtime.getURL("injected/skipForNowButton.js");
-  document.body.appendChild(s);
+  third.InjectScript("skipForNowButton.js")
 }
 
-let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
+(async() => {
+  const src = chrome.runtime.getURL("resource/third.js");
+  const third = await import(src);
+  console.log(third)
+  let results = fetch(third.GetPath("default_settings.json"))
     .then((response) => response.json())
     .then((settings) => browser.storage.sync.get(settings));
 results.then((cfg) => {
