@@ -4,7 +4,7 @@ A browser extension designed to improve https://twocansandstring.com
 ## Installation
 Firefox: [Firefox Add-ons Page](https://addons.mozilla.org/en-US/firefox/addon/the-third-can/)
 
-Chrome: Coming soon!
+Chrome: [Chrome Web Store](https://chrome.google.com/webstore/detail/the-third-can/leimkcdimeemfabpjbjhiccaolpdbjng)
 
 ## Features
 - Confirm dialogs everywhere (well only some places for now, but more to come)
