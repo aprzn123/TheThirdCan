@@ -8,6 +8,7 @@ const submit = document.getElementById("submit");
 const showPronouns = document.getElementById("showPronouns");
 const displayLatex = document.getElementById("displayLatex");
 const useHotkeys = document.getElementById("useHotkeys");
+const hideFeed = document.getElementById("hideFeed");
 
 
 function showOptions() {
@@ -26,10 +27,11 @@ results.then((value) => {
   else {console.error(`skipConfirm was ${value.skipConfirm}, which is neither 0, 1, nor 2`);}
 
   skipForNow.checked = value.skipForNow;
-
   showPronouns.checked = value.showPronouns,
   displayLatex.checked = value.displayLatex,
   useHotkeys.checked = value.useHotkeys;
+  hideFeed.checked = value.hideFeed;
+
 
   showOptions();
 });
@@ -40,6 +42,8 @@ submit.addEventListener("click", () => {
     "skipForNow": skipForNow.checked,
     "showPronouns": showPronouns.checked,
     "displayLatex": displayLatex.checked,
-    "useHotkeys": useHotkeys.checked
+    "useHotkeys": useHotkeys.checked,
+    "hideFeed": hideFeed.checked
+
   });
 });

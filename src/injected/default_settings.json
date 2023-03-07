@@ -3,5 +3,6 @@
   "skipForNow": false,
   "showPronouns": true,
   "displayLatex": true,
-  "useHotkeys" : false
+  "useHotkeys" : false,
+  "hideFeed" : false
 }
