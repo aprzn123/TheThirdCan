@@ -1,31 +1,34 @@
-function enableSkipConfirm(always) {
-  let s = document.createElement("script");
-  if (always) { s.src = browser.runtime.getURL("injected/alwaysSkipConfirm.js"); }
-  else { s.src = browser.runtime.getURL("injected/textSkipConfirm.js"); }
-  document.body.appendChild(s);
+function enableSkipConfirm(third, always) {
+  third.InjectScript(always ? "alwaysSkipConfirm.js" : "textSkipConfirm.js");
 }
 
-function enableHotKeys() {
-  let s = document.createElement("script");
-  s.src = browser.runtime.getURL("injected/hotkeys.js"); 
-  document.body.appendChild(s);
+function enableHotKeys(third) {
+  third.InjectScript("hotkeys.js")
 }
-function enableSkipForNow() {
-  let s = document.createElement("script");
-  s.src = browser.runtime.getURL("injected/skipForNowButton.js");
-  document.body.appendChild(s);
+function enableSkipForNow(third) {
+  third.InjectScript("skipForNowButton.js")
 }
 
-let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
+(async() => {
+  const src = browser.runtime.getURL("resource/third.js");
+  const third = (await import(src)).default;
+  if (document.querySelector("script#THIRD_IMPORT") == null) {
+    const thirdImport = document.createElement("script");
+    thirdImport.id = "THIRD_IMPORT";
+    thirdImport.src = src;
+    thirdImport.type = "module";
+    document.body.appendChild(thirdImport)
+  }
+  let results = third.GetSettings()
     .then((response) => response.json())
     .then((settings) => browser.storage.sync.get(settings));
 results.then((cfg) => {
   
   if (cfg.useHotkeys) {
-    enableHotKeys();
+    enableHotKeys(third);
   }
-  if (cfg.skipConfirm) {enableSkipConfirm(cfg.skipConfirm === 2);}
+  if (cfg.skipConfirm) {enableSkipConfirm(third, cfg.skipConfirm === 2);}
   if (cfg.skipForNow) {
-    enableSkipForNow();
+    enableSkipForNow(third);
   }
-});
+})})();

@@ -1,4 +1,4 @@
-{
+(async (third) => {
   let textbox = document.getElementById("answer_text");
   let purpleButton = document.querySelector("button.purple");
   let buttonArea = purpleButton.parentElement;
@@ -7,8 +7,8 @@
   buttonArea.insertBefore(skipForNowButton, purpleButton.nextSibling);
 
   // hacky way to get user id
-  const attr = document.querySelector("body").getAttribute("onload");
-  const userID = Number(attr.substring(18, attr.length - 1));
+  let userID = await third.GetUserID();
+  userID = Number(userID);
 
   function shouldSkip() {
     const cfgStr = window.sessionStorage.getItem("ttcConfigState");
@@ -31,3 +31,4 @@
     }
   };
 }
+)(third);

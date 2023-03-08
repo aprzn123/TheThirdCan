@@ -1,4 +1,4 @@
-function injectPronouns() {
+function injectPronouns(third) {
   let els = document.getElementsByClassName("forum_post_user_name");
   for (let i = 0; i < els.length; i++) {
     let el = els[i];
@@ -19,29 +19,33 @@ function injectPronouns() {
   }
 }
 
-function configureLatex() {
-  let tag = document.createElement("script");
-  tag.src = browser.runtime.getURL("injected/tex-config.js");
-  document.getElementsByTagName("head")[0].appendChild(tag);
+function configureLatex(third) {
+  third.InjectScript("tex-config.js", { useHead: true })
 }
 
-function injectLatex() {
-  let tag = document.createElement("script");
-  tag.async = true;
-  tag.type = "text/javascript";
-  tag.src = browser.runtime.getURL("injected/tex-mml-svg.js");
-  document.getElementsByTagName("head")[0].appendChild(tag);
+function injectLatex(third) {
+  third.InjectScript("tex-mml-svg.js", { useHead: true })
 }
 
-let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
+(async() => {
+  const src = browser.runtime.getURL("resource/third.js");
+  const third = (await import(src)).default;
+  if (document.querySelector("script#THIRD_IMPORT") == null) {
+    const thirdImport = document.createElement("script");
+    thirdImport.id = "THIRD_IMPORT";
+    thirdImport.src = src;
+    thirdImport.type = "module";
+    document.body.appendChild(thirdImport)
+  }
+let results = third.GetSettings()
     .then((response) => response.json())
     .then((settings) => browser.storage.sync.get(settings));
 results.then((cfg) => {
   if (cfg.showPronouns) {
-    injectPronouns();
+    injectPronouns(third);
   }
   if (cfg.displayLatex) {
-    configureLatex();
-    injectLatex();
+    configureLatex(third);
+    injectLatex(third);
   }
-});
+})})();
