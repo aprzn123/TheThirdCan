@@ -1,30 +1,34 @@
-function enableSkipConfirm(always) {
+function enableSkipConfirm(third, always) {
   third.InjectScript(always ? "alwaysSkipConfirm.js" : "textSkipConfirm.js");
 }
 
-function enableHotKeys() {
-  let s = document.createElement("script");
-  s.src = browser.runtime.getURL("injected/hotkeys.js"); 
-  document.body.appendChild(s);
+function enableHotKeys(third) {
+  third.InjectScript("hotkeys.js")
 }
-function enableSkipForNow() {
+function enableSkipForNow(third) {
   third.InjectScript("skipForNowButton.js")
 }
 
 (async() => {
-  const src = chrome.runtime.getURL("resource/third.js");
-  const third = await import(src);
-  console.log(third)
-  let results = fetch(third.GetPath("default_settings.json"))
+  const src = browser.runtime.getURL("resource/third.js");
+  const third = (await import(src)).default;
+  if (document.querySelector("script#THIRD_IMPORT") == null) {
+    const thirdImport = document.createElement("script");
+    thirdImport.id = "THIRD_IMPORT";
+    thirdImport.src = src;
+    thirdImport.type = "module";
+    document.body.appendChild(thirdImport)
+  }
+  let results = third.GetSettings()
     .then((response) => response.json())
     .then((settings) => browser.storage.sync.get(settings));
 results.then((cfg) => {
   
   if (cfg.useHotkeys) {
-    enableHotKeys();
+    enableHotKeys(third);
   }
-  if (cfg.skipConfirm) {enableSkipConfirm(cfg.skipConfirm === 2);}
+  if (cfg.skipConfirm) {enableSkipConfirm(third, cfg.skipConfirm === 2);}
   if (cfg.skipForNow) {
-    enableSkipForNow();
+    enableSkipForNow(third);
   }
-});
+})})();
