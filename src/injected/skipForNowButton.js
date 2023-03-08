@@ -7,7 +7,7 @@
   buttonArea.insertBefore(skipForNowButton, purpleButton.nextSibling);
 
   // hacky way to get user id
-  let userID = await third.GetUserID();
+  let userID = third.GetUserIDFromAnswerPage();
   userID = Number(userID);
 
   function shouldSkip() {

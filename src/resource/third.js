@@ -39,7 +39,7 @@ third.GetSettings = function() {
 
 /**
  * Gets the ID of the current user.
- * @returns {Promise}
+ * @returns {Promise<string>}
  */
 third.GetUserID = function() {
   return new Promise((resolve, reject) => {
@@ -56,6 +56,17 @@ third.GetUserID = function() {
       resolve(html);
     });
   });
+}
+
+/**
+ * Gets the ID of the current user directly from the page if the current page
+ * is "/answer".
+ * @returns {string}
+ */
+third.GetUserIDFromAnswerPage = function() {
+  const attr = document.querySelector("body").getAttribute("onload");
+  const userID = attr.substring(18, attr.length - 1);
+  return userID;
 }
 
 /**
