@@ -42,11 +42,7 @@ third.InjectToggleableScripts = async function(scripts, caller) {
   if (scriptsToInject.length == 0) { return; }
 
   // send config to page
-  fetch(browser.runtime.getURL("injected/default_settings.json"))
-      .then((response) => response.json())
-      .then((settings) => browser.storage.sync.get(settings))
-      .then((settings) => JSON.stringify(settings))
-      .then((state) => window.sessionStorage.setItem("ttcConfigState", state));
+  window.sessionStorage.setItem("ttcConfigState", JSON.stringify(settings));
 
   // easier to injectfunctions this way
   const _inject = function(name) {
@@ -55,10 +51,12 @@ third.InjectToggleableScripts = async function(scripts, caller) {
     document.head.appendChild(decl);
   }
 
+  // give fourth some functions
   _inject("fourth-decl.js");
   _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js");
   _inject("config.js");
 
+  // inject scripts
   for (const script of scriptsToInject) {
     if (typeof script === "string") {
       third.InjectScript(script);
