@@ -1,4 +1,4 @@
-(async (third) => {
+{
   let textbox = document.getElementById("answer_text");
   let purpleButton = document.querySelector("button.purple");
   let buttonArea = purpleButton.parentElement;
@@ -6,6 +6,7 @@
   skipForNowButton.innerText = "Skip for now";
   buttonArea.insertBefore(skipForNowButton, purpleButton.nextSibling);
 
+  // TODO: inject user id access in third.InjectToggleableScripts
   // hacky way to get user id
   let userID = third.GetUserIDFromAnswerPage();
   userID = Number(userID);
@@ -31,4 +32,3 @@
     }
   };
 }
-)(third);

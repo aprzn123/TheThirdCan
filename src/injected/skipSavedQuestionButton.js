@@ -1,4 +1,4 @@
-(async () => {
+{
   function addButtons(id) {
     const savedQuestions = document.querySelectorAll("#content_host > div");
     savedQuestions.forEach((questionContainer) => {
@@ -28,6 +28,6 @@
     });
   }
 
+  // TODO: inject user id through third so we don't call it from injected scripts
   third.GetUserID().then(addButtons);
 }
-)();
