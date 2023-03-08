@@ -6,14 +6,11 @@
   skipForNowButton.innerText = "Skip for now";
   buttonArea.insertBefore(skipForNowButton, purpleButton.nextSibling);
 
-  // TODO: inject user id access in third.InjectToggleableScripts
-  // hacky way to get user id
-  let userID = third.GetUserIDFromAnswerPage();
+  let userID = await fourth.UserId();
   userID = Number(userID);
 
   function shouldSkip() {
-    const cfgStr = window.sessionStorage.getItem("ttcConfigState");
-    const cfg = JSON.parse(cfgStr);
+    const cfg = fourth.config();
     if (cfg.skipConfirm !== undefined) {
       // check if user enabled skip confirmation. if so, prompt for confirmation
       // if necessary according to the user's settings

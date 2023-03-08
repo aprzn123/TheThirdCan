@@ -1,6 +1,5 @@
 {
-  const cfgStr = window.sessionStorage.getItem("ttcConfigState");
-  const cfg = JSON.parse(cfgStr);
+  const cfg = fourth.config();
   const always = cfg.skipConfirm === 2;
   let button = document.querySelector("button.purple");
   let textbox = document.getElementById("answer_text");

@@ -4,5 +4,5 @@
 
   third.InjectToggleableScripts({
     skipSavedQuestions: "skipSavedQuestionButton.js"
-  });
+  }, "savedquestions");
 })();

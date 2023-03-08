@@ -22,21 +22,13 @@ function injectPronouns(third) {
 (async() => {
   const src = browser.runtime.getURL("resource/third.js");
   const third = (await import(src)).default;
-  // TODO: still don't do that, maybe?
-  // if (document.querySelector("script#THIRD_IMPORT") == null) {
-  //   const thirdImport = document.createElement("script");
-  //   thirdImport.id = "THIRD_IMPORT";
-  //   thirdImport.src = src;
-  //   thirdImport.type = "module";
-  //   document.body.appendChild(thirdImport)
-  // }
 
   third.InjectToggleableScripts({
     displayLatex: [
       { name: "tex-config.js", useHead: true },
       { name: "tex-mml-svg.js", useHead: true }
     ]
-  });
+  }, "forum");
 
   const cfg = await third.GetSettings();
   if (cfg.showPronouns) {

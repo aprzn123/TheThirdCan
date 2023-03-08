@@ -40,7 +40,25 @@ third.InjectToggleableScripts = async function(scripts, caller) {
   const settings = await third.GetSettings();
   const scriptsToInject = Object.entries(scripts).filter((entry) => settings[entry[0]]).map((entry) => entry[1]);
   if (scriptsToInject.length == 0) { return; }
-  // TODO: Inject polyfilled utilities relevant to the content script
+
+  // send config to page
+  fetch(browser.runtime.getURL("injected/default_settings.json"))
+      .then((response) => response.json())
+      .then((settings) => browser.storage.sync.get(settings))
+      .then((settings) => JSON.stringify(settings))
+      .then((state) => window.sessionStorage.setItem("ttcConfigState", state));
+
+  // easier to injectfunctions this way
+  const _inject = function(name) {
+    const decl = document.createElement("script");
+    decl.src = browser.runtime.getURL(`resource/${name}`);
+    document.head.appendChild(decl);
+  }
+
+  _inject("fourth-decl.js");
+  _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js");
+  _inject("config.js");
+
   for (const script of scriptsToInject) {
     if (typeof script === "string") {
       third.InjectScript(script);
@@ -51,13 +69,13 @@ third.InjectToggleableScripts = async function(scripts, caller) {
         } else if (typeof trueScript === "object") {
           third.InjectScript(trueScript.name, trueScript);
         } else {
-          // TODO: Throw error, see below
+          console.error(`${trueScript} is not a valid script name`);
         }
       }
     } else if (typeof script === "object") {
       third.InjectScript(script.name, script);
     } else {
-      // TODO: Throw error? idk how js handles that 
+      console.error(`${script} is not a valid script name`);
     }
   }
 }
