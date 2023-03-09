@@ -20,21 +20,72 @@ third.GetPath = function(path) {
  * @returns {HTMLScriptElement}
  */
 third.InjectScript = function(path, options) {
+  // note that options shouldn't have a "name" property, to keep the code for third.InjectToggleableScripts simpler.
   options = options || {}
   const el = document.createElement("script");
   el.src = third.GetPath(path);
   el.type = "text/javascript";
   el.async = options.noAsync ? false : true;
+  // Why not always use head?
   (options.useHead ? document.head : document.body).append(el);
   return el;
 }
 
 /**
- * Gets the default settings.
+ * Calls third.InjectScript on multiple scripts in a batch, only when the corresponding configuration options are truthy.
+ * @param {object} scripts An Object where keys are setting names and values are either injectable script names, objects with options (script name in "name" key), or arrays of these.
+ * @param {string} caller The name of the content script calling the function
+ */
+third.InjectToggleableScripts = async function(scripts, caller) {
+  const settings = await third.GetSettings();
+  const scriptsToInject = Object.entries(scripts).filter((entry) => settings[entry[0]]).map((entry) => entry[1]);
+  if (scriptsToInject.length == 0) { return; }
+
+  // send config to page
+  window.sessionStorage.setItem("ttcConfigState", JSON.stringify(settings));
+
+  // easier to injectfunctions this way
+  const _inject = function(name) {
+    const decl = document.createElement("script");
+    decl.src = browser.runtime.getURL(`resource/${name}`);
+    document.head.appendChild(decl);
+  }
+
+  // give fourth some functions
+  _inject("fourth-decl.js");
+  _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js");
+  _inject("config.js");
+
+  // inject scripts
+  for (const script of scriptsToInject) {
+    if (typeof script === "string") {
+      third.InjectScript(script);
+    } else if (Array.isArray(script)) {
+      for (const trueScript of script) {
+        if (typeof trueScript === "string") {
+          third.InjectScript(trueScript);
+        } else if (typeof trueScript === "object") {
+          third.InjectScript(trueScript.name, trueScript);
+        } else {
+          console.error(`${trueScript} is not a valid script name`);
+        }
+      }
+    } else if (typeof script === "object") {
+      third.InjectScript(script.name, script);
+    } else {
+      console.error(`${script} is not a valid script name`);
+    }
+  }
+}
+
+/**
+ * Gets the current settings.
  * @returns {Promise}
  */
-third.GetSettings = function() {
+third.GetSettings = async function() {
   return fetch(third.GetPath("default_settings.json"))
+        .then((response) => response.json())
+        .then((settings) => browser.storage.sync.get(settings));
 }
 
 /**

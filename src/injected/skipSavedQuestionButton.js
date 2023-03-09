@@ -1,9 +1,8 @@
-(async () => {
+{
   function addButtons(id) {
     const savedQuestions = document.querySelectorAll("#content_host > div");
     savedQuestions.forEach((questionContainer) => {
-      const cfgStr = window.sessionStorage.getItem("ttcConfigState");
-      const cfg = JSON.parse(cfgStr);
+      const cfg = fourth.config();
 
       /** @type {HTMLAnchorElement} */
       let a = questionContainer.querySelector("a");
@@ -28,6 +27,5 @@
     });
   }
 
-  third.GetUserID().then(addButtons);
+  fourth.UserId().then(addButtons);
 }
-)();

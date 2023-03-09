@@ -19,33 +19,19 @@ function injectPronouns(third) {
   }
 }
 
-function configureLatex(third) {
-  third.InjectScript("tex-config.js", { useHead: true })
-}
-
-function injectLatex(third) {
-  third.InjectScript("tex-mml-svg.js", { useHead: true })
-}
-
 (async() => {
   const src = browser.runtime.getURL("resource/third.js");
   const third = (await import(src)).default;
-  if (document.querySelector("script#THIRD_IMPORT") == null) {
-    const thirdImport = document.createElement("script");
-    thirdImport.id = "THIRD_IMPORT";
-    thirdImport.src = src;
-    thirdImport.type = "module";
-    document.body.appendChild(thirdImport)
-  }
-let results = third.GetSettings()
-    .then((response) => response.json())
-    .then((settings) => browser.storage.sync.get(settings));
-results.then((cfg) => {
+
+  third.InjectToggleableScripts({
+    displayLatex: [
+      { name: "tex-config.js", useHead: true },
+      { name: "tex-mml-svg.js", useHead: true }
+    ]
+  }, "forum");
+
+  const cfg = await third.GetSettings();
   if (cfg.showPronouns) {
     injectPronouns(third);
   }
-  if (cfg.displayLatex) {
-    configureLatex(third);
-    injectLatex(third);
-  }
-})})();
+})();
