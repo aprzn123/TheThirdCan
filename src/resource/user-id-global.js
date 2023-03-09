@@ -1,4 +1,4 @@
-fouth.UserId = function() {
+fourth.UserId = function() {
   return new Promise((resolve, reject) => {
     // timeout after 5000 milliseconds
     const timeout = window.setTimeout(5000, () => {
