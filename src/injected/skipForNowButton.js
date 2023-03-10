@@ -6,9 +6,6 @@
   skipForNowButton.innerText = "Skip for now";
   buttonArea.insertBefore(skipForNowButton, purpleButton.nextSibling);
 
-  let userID = await fourth.UserId();
-  userID = Number(userID);
-
   function shouldSkip() {
     const cfg = fourth.config();
     if (cfg.skipConfirm !== undefined) {
@@ -21,11 +18,16 @@
     return true;
   }
 
-  skipForNowButton.onclick = () => {
-    if (shouldSkip()) {
-      // the best way to get a new question would be to reinit the QA
-      TC.QA.Answer.init(userID);
-      textbox.value = "";
-    }
-  };
+
+  (async () => {
+    let userID = await fourth.UserId();
+
+    skipForNowButton.onclick = () => {
+      if (shouldSkip()) {
+        // the best way to get a new question would be to reinit the QA
+        TC.QA.Answer.init(userID);
+        textbox.value = "";
+      }
+    };
+  })();
 }
