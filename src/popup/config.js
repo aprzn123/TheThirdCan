@@ -1,19 +1,37 @@
 const loading = document.getElementById("loading");
 const options = document.getElementById("options");
+const submit = document.getElementById("submit");
+
 const neverSkipConfirm = document.getElementById("neverSkipConfirm");
 const textSkipConfirm = document.getElementById("textSkipConfirm");
 const alwaysSkipConfirm = document.getElementById("alwaysSkipConfirm");
-const skipForNow = document.getElementById("skipForNow");
-const skipSavedQuestions = document.getElementById("skipSavedQuestions");
-const submit = document.getElementById("submit");
-const showPronouns = document.getElementById("showPronouns");
-const displayLatex = document.getElementById("displayLatex");
-const useHotkeys = document.getElementById("useHotkeys");
+
+const boolTags = [
+  "skipForNow",
+  "skipSavedQuestions",
+  "showPronouns",
+  "displayLatex",
+  "useHotkeys",
+];
 
 
 function showOptions() {
   loading.style.display = "none";
   options.style.display = "inline";
+}
+
+function updateBools(boolTags, value) {
+  for (tag of boolTags) {
+    document.getElementById(tag).checked = value[tag];
+  }
+}
+
+function getBools(boolTags) {
+  let out = {};
+  for (tag of boolTags) {
+    out[tag] = document.getElementById(tag).checked;
+  }
+  return out;
 }
 
 let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
@@ -26,23 +44,12 @@ results.then((value) => {
   else if (value.skipConfirm === 2) {alwaysSkipConfirm.checked = true;}
   else {console.error(`skipConfirm was ${value.skipConfirm}, which is neither 0, 1, nor 2`);}
 
-  skipForNow.checked = value.skipForNow;
-  skipSavedQuestions.checked = value.skipSavedQuestions;
-
-  showPronouns.checked = value.showPronouns,
-  displayLatex.checked = value.displayLatex,
-  useHotkeys.checked = value.useHotkeys;
-
+  updateBools(boolTags, value);
   showOptions();
 });
 
 submit.addEventListener("click", () => {
-  browser.storage.sync.set({
-    "skipConfirm": textSkipConfirm.checked * 1 + alwaysSkipConfirm.checked * 2,
-    "skipForNow": skipForNow.checked,
-    "skipSavedQuestions": skipSavedQuestions.checked,
-    "showPronouns": showPronouns.checked,
-    "displayLatex": displayLatex.checked,
-    "useHotkeys": useHotkeys.checked
-  });
+  let newConfig = getBools(boolTags);
+  newConfig.skipConfirm = textSkipConfirm.checked * 1 + alwaysSkipConfirm.checked * 2;
+  browser.storage.sync.set(newConfig);
 });
