@@ -2,17 +2,23 @@ const loading = document.getElementById("loading");
 const options = document.getElementById("options");
 const submit = document.getElementById("submit");
 
-const neverSkipConfirm = document.getElementById("neverSkipConfirm");
-const textSkipConfirm = document.getElementById("textSkipConfirm");
-const alwaysSkipConfirm = document.getElementById("alwaysSkipConfirm");
+/// skipConfirm code:
+/// 0 - never
+/// 1 - only when text in box
+/// 2 - always
 
-const boolTags = [
-  "skipForNow",
-  "skipSavedQuestions",
-  "showPronouns",
-  "displayLatex",
-  "useHotkeys",
-];
+const tags = {
+  boolTags: [
+    "skipForNow",
+    "skipSavedQuestions",
+    "showPronouns",
+    "displayLatex",
+    "useHotkeys",
+  ],
+  radioTags: [
+    "skipConfirm",
+  ]
+};
 
 
 function showOptions() {
@@ -20,36 +26,52 @@ function showOptions() {
   options.style.display = "inline";
 }
 
-function updateBools(boolTags, value) {
-  for (tag of boolTags) {
+function loadSettings(tags, value) {
+  for (const tag of tags.boolTags) {
     document.getElementById(tag).checked = value[tag];
+  }
+  for (const tag of tags.radioTags) {
+    console.log(`${tag}: ${document.getElementById(tag)}`);
+    const inputs = Array.from(document.getElementById(tag).children)
+    .filter(child => child.tagName === "input" && child.type === "radio");
+    console.log(inputs);
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].checked = value[tag] === i;
+    }
   }
 }
 
-function getBools(boolTags) {
+function getSettings(tags) {
   let out = {};
-  for (tag of boolTags) {
+  for (const tag of tags.boolTags) {
     out[tag] = document.getElementById(tag).checked;
+  }
+  for (const tag of tags.radioTags) {
+    const inputs = Array.from(document.getElementById(tag).children)
+    .filter((child) => child.tagName === "INPUT" && child.type === "radio");
+    console.log(inputs);
+    for (let i = 0; i < inputs.length; i++) {
+      if (inputs[i].checked) {
+        out[tag] === i;
+      }
+    }
   }
   return out;
 }
 
-let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
-    .then((response) => response.json())
-    .then((settings) => browser.storage.sync.get(settings));
-results.then((value) => {
-  console.log(value);
-  if (value.skipConfirm === 0) {neverSkipConfirm.checked = true;}
-  else if (value.skipConfirm === 1) {textSkipConfirm.checked = true;}
-  else if (value.skipConfirm === 2) {alwaysSkipConfirm.checked = true;}
-  else {console.error(`skipConfirm was ${value.skipConfirm}, which is neither 0, 1, nor 2`);}
-
-  updateBools(boolTags, value);
-  showOptions();
+document.addEventListener("DOMContentLoaded", () => {
+  let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
+      .then((response) => response.json())
+      .then((settings) => browser.storage.sync.get(settings));
+  results.then((value) => {
+    console.log(value);
+    loadSettings(tags, value);
+    showOptions();
+  });
 });
 
 submit.addEventListener("click", () => {
-  let newConfig = getBools(boolTags);
+  let newConfig = getSettings(tags);
   newConfig.skipConfirm = textSkipConfirm.checked * 1 + alwaysSkipConfirm.checked * 2;
   browser.storage.sync.set(newConfig);
 });

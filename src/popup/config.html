@@ -10,15 +10,17 @@
 <body>
   <div id="options">
     Confirm dialog when skipping:<br />
-    <input id="neverSkipConfirm" type="radio" name="skipConfirm" value="neverSkipConfirm">
-    <label for="neverSkipConfirm">Never</label>
-    <br />
-    <input id="textSkipConfirm" type="radio" name="skipConfirm" value="textSkipConfirm">
-    <label for="textSkipConfirm">When the answer box has text</label>
-    <br />
-    <input id="alwaysSkipConfirm" type="radio" name="skipConfirm" value="alwaysSkipConfirm">
-    <label for="alwaysSkipConfirm">Always</label>
-    <br />  
+    <!--Note that the order of the inputs is significant; DON'T CHANGE UNLESS YOU ALSO UPDATE ALL NUMBER CORRESPONDENCES ELSEWHERE!-->
+    <div id=skipConfirm">
+      <input type="radio" name="skipConfirm" value="neverSkipConfirm">
+      <label for="neverSkipConfirm">Never</label>
+      <br />
+      <input type="radio" name="skipConfirm" value="textSkipConfirm">
+      <label for="textSkipConfirm">When the answer box has text</label>
+      <br />
+      <input type="radio" name="skipConfirm" value="alwaysSkipConfirm">
+      <label for="alwaysSkipConfirm">Always</label>
+    </div>
     <hr />
     <input id="skipForNow" type="checkbox" name="skipForNow">
     <label for="skipForNow">Enable "Skip for now" button</label>
