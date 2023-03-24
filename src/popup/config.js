@@ -2,7 +2,6 @@ const loading = document.getElementById("loading");
 const options = document.getElementById("options");
 const submit = document.getElementById("submit");
 
-/// skipConfirm code:
 /// 0 - never
 /// 1 - only when text in box
 /// 2 - always
@@ -31,10 +30,8 @@ function loadSettings(tags, value) {
     document.getElementById(tag).checked = value[tag];
   }
   for (const tag of tags.radioTags) {
-    console.log(`${tag}: ${document.getElementById(tag)}`);
     const inputs = Array.from(document.getElementById(tag).children)
-    .filter(child => child.tagName === "input" && child.type === "radio");
-    console.log(inputs);
+    .filter(child => child.tagName === "INPUT" && child.type === "radio");
     for (let i = 0; i < inputs.length; i++) {
       inputs[i].checked = value[tag] === i;
     }
@@ -49,10 +46,9 @@ function getSettings(tags) {
   for (const tag of tags.radioTags) {
     const inputs = Array.from(document.getElementById(tag).children)
     .filter((child) => child.tagName === "INPUT" && child.type === "radio");
-    console.log(inputs);
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].checked) {
-        out[tag] === i;
+        out[tag] = i;
       }
     }
   }
@@ -64,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => response.json())
       .then((settings) => browser.storage.sync.get(settings));
   results.then((value) => {
-    console.log(value);
     loadSettings(tags, value);
     showOptions();
   });
@@ -72,6 +67,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 submit.addEventListener("click", () => {
   let newConfig = getSettings(tags);
-  newConfig.skipConfirm = textSkipConfirm.checked * 1 + alwaysSkipConfirm.checked * 2;
   browser.storage.sync.set(newConfig);
 });
