@@ -4,5 +4,6 @@
   "skipSavedQuestions": true,
   "showPronouns": true,
   "displayLatex": true,
-  "useHotkeys" : false
+  "useHotkeys" : false,
+  "stealAvatarButton": true
 }
