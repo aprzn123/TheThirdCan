@@ -11,7 +11,7 @@
     if (cfg.skipConfirm !== undefined) {
       // check if user enabled skip confirmation. if so, prompt for confirmation
       // if necessary according to the user's settings
-      if ((cfg.skipConfirm === 1 && textbox.value !== "") || cfg.skipConfirm === 2) {
+      if ((cfg.skipConfirm === fourth.enums.skipConfirm.WHEN_TEXT_IN_BOX && textbox.value !== "") || cfg.skipConfirm === fourth.enums.skipConfirm.ALWAYS) {
         return confirm("Are you sure you want to skip this question for now?");
       }
     }

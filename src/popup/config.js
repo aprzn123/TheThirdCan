@@ -2,10 +2,6 @@ const loading = document.getElementById("loading");
 const options = document.getElementById("options");
 const submit = document.getElementById("submit");
 
-/// 0 - never
-/// 1 - only when text in box
-/// 2 - always
-
 const tags = {
   boolTags: [
     "skipForNow",

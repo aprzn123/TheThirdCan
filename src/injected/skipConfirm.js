@@ -1,6 +1,6 @@
 {
   const cfg = fourth.config();
-  const always = cfg.skipConfirm === 2;
+  const always = cfg.skipConfirm === fourth.enums.skipConfirm.ALWAYS;
   let button = document.querySelector("button.purple");
   let textbox = document.getElementById("answer_text");
   button.onclick = () => {
