@@ -6,4 +6,4 @@ enums.skipConfirm = {
   ALWAYS: 2,
 };
 
-fourth.enums = enums;
+export default enums;

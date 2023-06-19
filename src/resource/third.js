@@ -1,5 +1,9 @@
 const third = {};
 
+third.GetEnums = async function() {
+  return (await import(browser.runtime.getURL("resource/enums.js"))).default;
+}
+
 /**
  * Returns the path of an injected script (located in the `/injected` directory).
  * @param {string} path 
@@ -39,23 +43,28 @@ third.InjectScript = function(path, options) {
 third.InjectToggleableScripts = async function(scripts, caller) {
   const settings = await third.GetSettings();
   const scriptsToInject = Object.entries(scripts).filter((entry) => settings[entry[0]]).map((entry) => entry[1]);
+  // Early return to reduce load when there are no scripts
   if (scriptsToInject.length == 0) { return; }
 
   // send config to page
   window.sessionStorage.setItem("ttcConfigState", JSON.stringify(settings));
+  // so that the page knows where to get enums from
+  window.sessionStorage.setItem("ttcEnums", browser.runtime.getURL("resource/enums.js"));
 
   // easier to injectfunctions this way
-  const _inject = function(name) {
+  const _inject = function(name, isModule) {
     const decl = document.createElement("script");
+    if (isModule) {decl.type = "module";}
     decl.src = browser.runtime.getURL(`resource/${name}`);
     document.head.appendChild(decl);
   }
 
   // give fourth some functions
-  _inject("fourth-decl.js");
-  _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js");
-  _inject("config.js");
-  _inject("enums.js");
+  _inject("enums.js", true);
+  _inject("fourth-decl.js", false);
+  _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js", false);
+  _inject("config.js", false);
+  _inject("fourth-enums.js", false);
 
   // inject scripts
   for (const script of scriptsToInject) {

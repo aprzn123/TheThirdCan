@@ -1,6 +1,7 @@
-{
+(async() => {
   const cfg = fourth.config();
-  const always = cfg.skipConfirm === fourth.enums.skipConfirm.ALWAYS;
+  const enums = await fourth.enums;
+  const always = cfg.skipConfirm === enums.skipConfirm.ALWAYS;
   let button = document.querySelector("button.purple");
   let textbox = document.getElementById("answer_text");
   button.onclick = () => {
@@ -8,5 +9,4 @@
       TC.QA.Answer.skip_this(true);
     }
   };
-}
-
+})();
