@@ -55,6 +55,7 @@ third.InjectToggleableScripts = async function(scripts, caller) {
   _inject("fourth-decl.js");
   _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js");
   _inject("config.js");
+  _inject("enums.js");
 
   // inject scripts
   for (const script of scriptsToInject) {
