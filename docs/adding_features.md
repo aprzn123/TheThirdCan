@@ -21,7 +21,7 @@ Depending on the feature, it may be relevant only on one section of the site, or
 
 The paths diverge here:
 ### Normal Scripts
- In the relevant file in `src/js/`, write a function that takes `third` as an argument (see `docs/third_fourth.md`, but in short `third` is a collection of utilities) and implements the functionality you need. Then, at the end of the immediately-called `async` function that should already be in the file, add an `if` statement like this one:
+ In the relevant file in `src/js/`, write a function that takes `third` as an argument (see [Third & Fourth](docs/third_fourth.md), but in short `third` is a collection of utilities) and implements the functionality you need. Then, at the end of the immediately-called `async` function that should already be in the file, add an `if` statement like this one:
  ```js
  const cfg = await third.GetSettings();
  if (cfg.yourFeature) {
@@ -31,7 +31,7 @@ The paths diverge here:
 ### Injected Scripts
 `third` provides utilities that improve safety and efficiency when injecting scripts into the page. Begin by creating a new file in `src/injected/` for your feature. For safety, surround the entire file in a `{}` block (or an `(async () => { })();` block if it is an enum feature, for reasons that will become clear soon). 
 
-Injected scripts are provided access to `fourth` (see `docs/third_fourth.md`). If your script is an enum script, access enum values and configuration through `fourth.config()` and `await fourth.enums`.
+Injected scripts are provided access to `fourth` (see [Third & Fourth](docs/third_fourth.md)). If your script is an enum script, access enum values and configuration through `fourth.config()` and `await fourth.enums`.
 
 Now, to actually inject the script when the feature is enabled, go to the relevant `src/js/` file. It should contain a call to `third.InjectToggleableScripts()` with an object. To add your script, simply add an element to the object with the key being your configuration name (`yourFeature` in this example) and the value being the name of the file in `src/injected/`.
 
