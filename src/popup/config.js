@@ -21,47 +21,46 @@ function showOptions() {
   options.style.display = "inline";
 }
 
-function loadSettings(tags, value) {
+function loadSettings(tags, settings) {
   for (const tag of tags.boolTags) {
-    document.getElementById(tag).checked = value[tag];
+    document.getElementById(tag).checked = settings[tag];
   }
   for (const tag of tags.radioTags) {
-    const inputs = Array.from(document.getElementById(tag).children)
-    .filter(child => child.tagName === "INPUT" && child.type === "radio");
-    for (let i = 0; i < inputs.length; i++) {
-      inputs[i].checked = value[tag] === i;
-    }
+    Array.from(document.getElementById(tag).children)
+         .filter(child => child.tagName === "INPUT" 
+                       && child.type === "radio" 
+                       && settings[tag] === parseInt(child.dataset.enumerated)
+         ).map(i => i.checked = true);
   }
 }
 
-function getSettings(tags) {
+function getSettingsFromHtml(tags) {
   let out = {};
   for (const tag of tags.boolTags) {
     out[tag] = document.getElementById(tag).checked;
   }
   for (const tag of tags.radioTags) {
-    const inputs = Array.from(document.getElementById(tag).children)
-    .filter((child) => child.tagName === "INPUT" && child.type === "radio");
-    for (let i = 0; i < inputs.length; i++) {
-      if (inputs[i].checked) {
-        out[tag] = i;
-      }
-    }
+    out[tag] = parseInt(Array.from(document.getElementById(tag).children)
+                    .filter((child) => child.tagName === "INPUT" 
+                                       && child.type === "radio" 
+                                       && child.checked
+                    )[0].dataset.enumerated);
   }
   return out;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
+  fetch(browser.runtime.getURL("injected/default_settings.json"))
       .then((response) => response.json())
-      .then((settings) => browser.storage.sync.get(settings));
-  results.then((value) => {
-    loadSettings(tags, value);
-    showOptions();
-  });
+      .then((settings) => browser.storage.sync.get(settings))
+      .then((value) => {
+        loadSettings(tags, value);
+        showOptions();
+      });
 });
 
 submit.addEventListener("click", () => {
-  let newConfig = getSettings(tags);
+  let newConfig = getSettingsFromHtml(tags);
+  console.log(newConfig);
   browser.storage.sync.set(newConfig);
 });
