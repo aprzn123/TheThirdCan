@@ -18,12 +18,39 @@ third.GetPath = function(path) {
 }
 
 /**
- * Inserts a script tag in the page that links to an extension script
+ * Injects the `fourth` object into the page
+ */
+third.InjectFourth = async function(caller) {
+  // send config to page
+  window.sessionStorage.setItem("ttcConfigState", JSON.stringify(settings));
+  // so that the page knows where to get enums from
+  window.sessionStorage.setItem("ttcEnums", browser.runtime.getURL("resource/enums.js"));
+
+  // easier to inject functions this way
+  const _inject = function(name, isModule) {
+    const decl = document.createElement("script");
+    if (isModule) {decl.type = "module";}
+    decl.src = browser.runtime.getURL(`resource/${name}`);
+    document.head.appendChild(decl);
+  }
+
+  // give fourth some functions
+  _inject("enums.js", true);
+  _inject("fourth-decl.js", false);
+  _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js", false);
+  _inject("config.js", false);
+  _inject("fourth-enums.js", false);
+
+}
+
+/**
+ * Inserts a script tag in the page that links to an extension script. 
+ * If you are calling this function, make sure fourth is injected first with `await third.InjectFourth();`.
  * @param {string} path The path to the script file to be injected. Should be in the `/injected` directory.
  * @param {object} options Additional options.
  * @returns {HTMLScriptElement}
  */
-third.InjectScript = function(path, options) {
+third.InjectScript = async function(path, options) {
   // note that options shouldn't have a "name" property, to keep the code for third.InjectToggleableScripts simpler.
   options = options || {}
   const el = document.createElement("script");
@@ -46,25 +73,7 @@ third.InjectToggleableScripts = async function(scripts, caller) {
   // Early return to reduce load when there are no scripts
   if (scriptsToInject.length == 0) { return; }
 
-  // send config to page
-  window.sessionStorage.setItem("ttcConfigState", JSON.stringify(settings));
-  // so that the page knows where to get enums from
-  window.sessionStorage.setItem("ttcEnums", browser.runtime.getURL("resource/enums.js"));
-
-  // easier to injectfunctions this way
-  const _inject = function(name, isModule) {
-    const decl = document.createElement("script");
-    if (isModule) {decl.type = "module";}
-    decl.src = browser.runtime.getURL(`resource/${name}`);
-    document.head.appendChild(decl);
-  }
-
-  // give fourth some functions
-  _inject("enums.js", true);
-  _inject("fourth-decl.js", false);
-  _inject(caller === "answer" ? "user-id-answer.js" : "user-id-global.js", false);
-  _inject("config.js", false);
-  _inject("fourth-enums.js", false);
+  await third.InjectFourth(caller);
 
   // inject scripts
   for (const script of scriptsToInject) {
@@ -130,32 +139,33 @@ third.GetUserIDFromAnswerPage = function() {
   return userID;
 }
 
-/**
- * Creates a popup window that can be closed.
- * @param {string} title
- * @param {string} content
- */
-third.Alert = function(title, content) {
-  if (typeof title !== "string" || typeof content !== "string") {
-    console.error("Alert popup fields must be a string");
-    return;
-  }
-  const bgEl = document.createElement("div");
-  bgEl.style = "position:fixed;width:100%;height:100vh;top:0;left:0;background:rgba(0,0,0,0.7);";
-  document.body.style = "overflow:hidden;" // should be made less brute-forcey
-  const alertEl = document.createElement("div");
-  alertEl.style = "position:absolute;width:30%;height:auto;top:50%;left:50%;transform:translate(-50%,-50%);background:#e0e0e0;border-radius:8px;";
-  alertEl.innerHTML = `<div style="background:#444;height:auto;color:white;padding:0.5em;border-radius:8px 8px 0 0;word-wrap:break-word;">${title}</div><div style="padding:0.5em;text-align:left;">${content}</div>`;
-  const closeEl = document.createElement("a");
-  closeEl.href = "javascript:void(0)";
-  closeEl.innerHTML = "&#10005;";
-  closeEl.style = "font-weight:bold;position:absolute;display:block;top:8.5%;right:5%;color:white;";
-  closeEl.addEventListener("click", () => {
-    bgEl.remove();
-  });
-  alertEl.appendChild(closeEl)
-  bgEl.appendChild(alertEl)
-  document.body.append(bgEl);
-}
+/// Doesn't seem necessary for now, if it comes to be needed uncomment and document.
+// /**
+//  * Creates a popup window that can be closed.
+//  * @param {string} title
+//  * @param {string} content
+//  */
+// third.Alert = function(title, content) {
+//   if (typeof title !== "string" || typeof content !== "string") {
+//     console.error("Alert popup fields must be a string");
+//     return;
+//   }
+//   const bgEl = document.createElement("div");
+//   bgEl.style = "position:fixed;width:100%;height:100vh;top:0;left:0;background:rgba(0,0,0,0.7);";
+//   document.body.style = "overflow:hidden;" // should be made less brute-forcey
+//   const alertEl = document.createElement("div");
+//   alertEl.style = "position:absolute;width:30%;height:auto;top:50%;left:50%;transform:translate(-50%,-50%);background:#e0e0e0;border-radius:8px;";
+//   alertEl.innerHTML = `<div style="background:#444;height:auto;color:white;padding:0.5em;border-radius:8px 8px 0 0;word-wrap:break-word;">${title}</div><div style="padding:0.5em;text-align:left;">${content}</div>`;
+//   const closeEl = document.createElement("a");
+//   closeEl.href = "javascript:void(0)";
+//   closeEl.innerHTML = "&#10005;";
+//   closeEl.style = "font-weight:bold;position:absolute;display:block;top:8.5%;right:5%;color:white;";
+//   closeEl.addEventListener("click", () => {
+//     bgEl.remove();
+//   });
+//   alertEl.appendChild(closeEl)
+//   bgEl.appendChild(alertEl)
+//   document.body.append(bgEl);
+// }
 
 export default third;
