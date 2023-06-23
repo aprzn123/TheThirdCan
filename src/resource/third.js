@@ -22,6 +22,7 @@ third.GetPath = function(path) {
  */
 third.InjectFourth = async function(caller) {
   // send config to page
+  const settings = await third.GetSettings();
   window.sessionStorage.setItem("ttcConfigState", JSON.stringify(settings));
   // so that the page knows where to get enums from
   window.sessionStorage.setItem("ttcEnums", browser.runtime.getURL("resource/enums.js"));
