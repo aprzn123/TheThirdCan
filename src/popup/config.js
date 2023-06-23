@@ -1,14 +1,19 @@
 const loading = document.getElementById("loading");
 const options = document.getElementById("options");
-const neverSkipConfirm = document.getElementById("neverSkipConfirm");
-const textSkipConfirm = document.getElementById("textSkipConfirm");
-const alwaysSkipConfirm = document.getElementById("alwaysSkipConfirm");
-const skipForNow = document.getElementById("skipForNow");
-const skipSavedQuestions = document.getElementById("skipSavedQuestions");
 const submit = document.getElementById("submit");
-const showPronouns = document.getElementById("showPronouns");
-const displayLatex = document.getElementById("displayLatex");
-const useHotkeys = document.getElementById("useHotkeys");
+
+const tags = {
+  boolTags: [
+    "skipForNow",
+    "skipSavedQuestions",
+    "showPronouns",
+    "displayLatex",
+    "useHotkeys",
+  ],
+  radioTags: [
+    "skipConfirm",
+  ]
+};
 
 
 function showOptions() {
@@ -16,33 +21,46 @@ function showOptions() {
   options.style.display = "inline";
 }
 
-let results = fetch(browser.runtime.getURL("injected/default_settings.json"))
-    .then((response) => response.json())
-    .then((settings) => browser.storage.sync.get(settings));
-results.then((value) => {
-  console.log(value);
-  if (value.skipConfirm === 0) {neverSkipConfirm.checked = true;}
-  else if (value.skipConfirm === 1) {textSkipConfirm.checked = true;}
-  else if (value.skipConfirm === 2) {alwaysSkipConfirm.checked = true;}
-  else {console.error(`skipConfirm was ${value.skipConfirm}, which is neither 0, 1, nor 2`);}
+function loadSettings(tags, settings) {
+  for (const tag of tags.boolTags) {
+    document.getElementById(tag).checked = settings[tag];
+  }
+  for (const tag of tags.radioTags) {
+    Array.from(document.getElementById(tag).children)
+         .filter(child => child.tagName === "INPUT" 
+                       && child.type === "radio" 
+                       && settings[tag] === parseInt(child.dataset.enumerated)
+         ).map(i => i.checked = true);
+  }
+}
 
-  skipForNow.checked = value.skipForNow;
-  skipSavedQuestions.checked = value.skipSavedQuestions;
+function getSettingsFromHtml(tags) {
+  let out = {};
+  for (const tag of tags.boolTags) {
+    out[tag] = document.getElementById(tag).checked;
+  }
+  for (const tag of tags.radioTags) {
+    out[tag] = parseInt(Array.from(document.getElementById(tag).children)
+                    .filter((child) => child.tagName === "INPUT" 
+                                       && child.type === "radio" 
+                                       && child.checked
+                    )[0].dataset.enumerated);
+  }
+  return out;
+}
 
-  showPronouns.checked = value.showPronouns,
-  displayLatex.checked = value.displayLatex,
-  useHotkeys.checked = value.useHotkeys;
-
-  showOptions();
+document.addEventListener("DOMContentLoaded", () => {
+  fetch(browser.runtime.getURL("injected/default_settings.json"))
+      .then((response) => response.json())
+      .then((settings) => browser.storage.sync.get(settings))
+      .then((value) => {
+        loadSettings(tags, value);
+        showOptions();
+      });
 });
 
 submit.addEventListener("click", () => {
-  browser.storage.sync.set({
-    "skipConfirm": textSkipConfirm.checked * 1 + alwaysSkipConfirm.checked * 2,
-    "skipForNow": skipForNow.checked,
-    "skipSavedQuestions": skipSavedQuestions.checked,
-    "showPronouns": showPronouns.checked,
-    "displayLatex": displayLatex.checked,
-    "useHotkeys": useHotkeys.checked
-  });
+  let newConfig = getSettingsFromHtml(tags);
+  console.log(newConfig);
+  browser.storage.sync.set(newConfig);
 });
