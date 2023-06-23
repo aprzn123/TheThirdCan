@@ -55,7 +55,7 @@
 
   "web_accessible_resources": [
     {
-      "resources": ["injected/*"],
+      "resources": ["injected/*", "resource/*"],
       "matches": ["*://twocansandstring.com/*"]
     }
   ]
