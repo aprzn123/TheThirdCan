@@ -1,19 +1,4 @@
 {
-  function getUserId() {
-    return new Promise((resolve, reject) => {
-      // timeout after 5000 milliseconds
-      const timeout = window.setTimeout(5000, () => reject("Unable to find user ID."));
-
-      TC.Legacy.getPage("/answer", (html) => {
-        html = html.substring(html.indexOf("TC.QA.Answer.init"));
-        html = html.substring(html.indexOf("(") + 1);
-        html = html.substring(0, html.indexOf(")"));
-        window.clearTimeout(timeout);
-        resolve(html);
-      });
-    });
-  } 
-
   function drawImageToNewCanvas(img) {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -38,20 +23,22 @@
     const img = document.querySelector("#content_host div > img");
     console.log(img);
     const data = drawImageToNewCanvas(img);
-    getUserId().then((id) => {
-      fetch(`https://twocansandstring.com/drawing/api/${id}/saveimage/1/0/0`,
-        {
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify({
-            data,
-          }),
-        })
-        .then(() => console.log(data.length));
-    });
+    fourth.UserId()
+      .then((id) => {
+        fetch(`https://twocansandstring.com/drawing/api/${id}/saveimage/1/0/0`,
+          {
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({
+              data,
+            }),
+          })
+          .then(() => console.log(data.length));
+        }
+      );
   }
 
   const button = document.createElement("button");
