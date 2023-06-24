@@ -5,5 +5,5 @@
   "showPronouns": true,
   "displayLatex": true,
   "useHotkeys" : false,
-  "stealAvatarButton": true
+  "stealAvatar": true
 }

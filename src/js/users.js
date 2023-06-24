@@ -3,6 +3,6 @@
   const third = (await import(src)).default;
 
   third.InjectToggleableScripts({
-    stealAvatarButton: "stealAvatarButton.js",
+    stealAvatar: "stealAvatarButton.js",
   }, "users");
 })();
