@@ -11,6 +11,7 @@ const tags = {
     "useHotkeys",
     "stealAvatar",
     "answerFocus",
+    "restoreForum"
   ],
   radioTags: [
     "skipConfirm",

@@ -6,5 +6,6 @@
   "displayLatex": true,
   "useHotkeys" : false,
   "stealAvatar": true,
-  "answerFocus": true
+  "answerFocus": true,
+  "restoreForum": true
 }

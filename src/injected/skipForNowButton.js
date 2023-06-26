@@ -13,7 +13,7 @@
       // check if user enabled skip confirmation. if so, prompt for confirmation
       // if necessary according to the user's settings
       if ((cfg.skipConfirm === enums.skipConfirm.WHEN_TEXT_IN_BOX && textbox.value !== "") || cfg.skipConfirm === enums.skipConfirm.ALWAYS) {
-        return confirm("Are you sure you want to skip this question for now?");
+        return (await fourth.Confirm("Confirm", "Are you sure you want to skip this question for now?"));
       }
     }
     return true;

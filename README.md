@@ -12,6 +12,7 @@ Chrome: [Chrome Web Store](https://chrome.google.com/webstore/detail/the-third-c
 - Pronouns
 - Temporarily skip questions with the old Skip for Now button
 - Hotkeys for common actions on the answer page
+- Get the old forum homepage back with the "users online" indicator still intact
 
 ## Installation From Source
 If you would like to install the development version of The Third Can for testing purposes, then download or clone this repository, and then follow these instructions, depending on your browser.
@@ -20,7 +21,7 @@ If you would like to install the development version of The Third Can for testin
 1. Go to `about:debugging#/runtime/this-firefox` in the URL bar
 2. Select "Load Temporary Add-on..."
 3. Select the `manifest.json` file
-### Chrome 
+### Chrome
 1. Go to `chrome://extensions/` in the URL bar
 2. Turn on "Developer mode" in the upper-right-hand corner
 3. Create a zip archive of the src/ directory
