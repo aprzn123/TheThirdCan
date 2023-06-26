@@ -28,6 +28,9 @@
         // the best way to get a new question would be to reinit the QA
         TC.QA.Answer.init(userID);
         textbox.value = "";
+        if (fourth.config().answerFocus) {
+          textbox.focus();
+        }
       }
     };
   })();

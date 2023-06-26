@@ -25,21 +25,20 @@
     <label for="skipForNow">Enable "Skip for now" button</label>
     <br />
     <input id="skipSavedQuestions" type="checkbox" name="skipSavedQuestions">
-    <label for="skipSavedQuestions">Enable skipping saved question button</label>
+    <label for="skipSavedQuestions">Allow removal of saved questions</label>
     <br />
-    <input id="stealAvatar" type="checkbox" name="stealAvatar">
-    <label for="stealAvatar">Enable avatar stealer button</label>
+    <input id="answerFocus" type="checkbox" name="answerFocus">
+    <label for="answerFocus">Improve focus on answer page text box</label>
     <br />
     <input id="useHotkeys" type="checkbox" name="useHotkeys">
     <label for="useHotkeys">Use hotkeys
       <div class="tooltip">
         <i class="fa fa-question-circle" aria-hidden="true"></i>
-        <span class="tooltiptext">
-          Hotkey layout 
+        <div class="tooltiptext">Hotkey layout 
           Ctrl + enter : answer 
           Ctrl + s : save 
           Ctrl + m : skip 
-        </span>
+        </div>
       </div>
      </label>
     <br />
@@ -52,6 +51,9 @@
     <br />
     <input type="checkbox" id="restoreForum">
     <label for="restoreForum">Restore old forum look</label>
+    <hr />
+    <input id="stealAvatar" type="checkbox" name="stealAvatar">
+    <label for="stealAvatar">Enable avatar stealer button</label>
     <hr />
     <button id="submit">Save Settings</button>
   </div>
