@@ -10,6 +10,7 @@ const tags = {
     "displayLatex",
     "useHotkeys",
     "stealAvatar",
+    "answerFocus",
   ],
   radioTags: [
     "skipConfirm",
