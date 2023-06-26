@@ -53,7 +53,7 @@
     document.getElementById("dark_nav").innerHTML = "Forum";
     // Add search link
     const a = document.createElement("div");
-    a.innerHTML = '<a href="https://twocansandstring.com/forum/search">Search Posts</a> | <a href="javascript:void(0)">Mark all posts as read</a>';
+    a.innerHTML = '<a href="https://twocansandstring.com/forum/search">Search Posts</a> | <a href="https://twocansandstring.com/forum/readall">Mark all posts as read</a>';
     a.style.textAlign = "right";
     document.getElementById("content_host").prepend(a);
     //// Now start reconstructing our categories from scratch
