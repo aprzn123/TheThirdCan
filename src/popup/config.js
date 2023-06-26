@@ -9,6 +9,7 @@ const tags = {
     "showPronouns",
     "displayLatex",
     "useHotkeys",
+    "restoreForum"
   ],
   radioTags: [
     "skipConfirm",
