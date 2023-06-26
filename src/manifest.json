@@ -50,6 +50,10 @@
     {
       "matches": ["*://twocansandstring.com/savedquestions"],
       "js": ["/js/browser-polyfill.min.js", "js/savedquestions.js"]
+    },
+    {
+      "matches": ["*://twocansandstring.com/users/*"],
+      "js": ["/js/browser-polyfill.min.js", "js/users.js"]
     }
   ],
 
