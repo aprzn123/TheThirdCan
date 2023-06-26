@@ -6,7 +6,7 @@ third.GetEnums = async function() {
 
 /**
  * Returns the path of an injected script (located in the `/injected` directory).
- * @param {string} path 
+ * @param {string} path
  * @returns {string} The full path to the script.
  */
 third.GetPath = function(path) {
@@ -45,7 +45,7 @@ third.InjectFourth = async function(caller) {
 }
 
 /**
- * Inserts a script tag in the page that links to an extension script. 
+ * Inserts a script tag in the page that links to an extension script.
  * If you are calling this function, make sure fourth is injected first with `await third.InjectFourth();`.
  * @param {string} path The path to the script file to be injected. Should be in the `/injected` directory.
  * @param {object} options Additional options.
@@ -58,6 +58,7 @@ third.InjectScript = async function(path, options) {
   el.src = third.GetPath(path);
   el.type = "text/javascript";
   el.async = options.noAsync ? false : true;
+  el.defer = !!options.defer;
   // Why not always use head?
   (options.useHead ? document.head : document.body).append(el);
   return el;
