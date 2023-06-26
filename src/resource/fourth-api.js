@@ -7,35 +7,27 @@
  * @param {string} fn The name of the function. Follows the format of [category].[function]. The API is undocumented, so if there is a function name you are looking for that you don't know the name of, then you are mostly out of luck.
  * @example fourth.Request("forum.categories");
  */
-fourth.Request = async function(fn) {
+fourth.Request = function(fn) {
   if (typeof fn === "string") fn = [fn];
   let fns = [];
   for (let f of fn) {
     fns.push({"fn": f});
   }
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://twocansandstring.com/stitchservices");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) resolve(JSON.parse(xhr.responseText));
-      else reject({
-        status: xhr.status,
-        statusText: xhr.statusText
-      });
-    };
-    xhr.onerror = () => {
-      reject({
-        status: xhr.status,
-        statusText: xhr.statusText
-      });
-    }
-    xhr.send(JSON.stringify({
-      "apiVersion": null,
-      "expectUserChange": true,
-      "requests": fns
-    }));
-  })
+    fetch("https://twocansandstring.com/stitchservices", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "apiVersion": null,
+        "expectUserChange": true,
+        "requests": fns
+      })
+    }).then(v => {
+      v.json().then(resolve);
+    }, reject);
+  });
 }
 
 /**

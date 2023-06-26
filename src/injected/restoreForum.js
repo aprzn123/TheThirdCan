@@ -6,31 +6,6 @@
     link.href = "/twocans_prod_2022_11_11_21_55_52/res/" + dir + ".css";
     document.head.appendChild(link);
   }
-  // function getCategories() {
-  //   return new Promise((resolve, reject) => {
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.open("POST", "https://twocansandstring.com/stitchservices");
-  //     xhr.setRequestHeader("Content-Type", "application/json");
-  //     xhr.onload = () => {
-  //       if (xhr.status >= 200 && xhr.status < 300) resolve(JSON.parse(xhr.responseText).responses[0].categories);
-  //       else reject({
-  //         status: xhr.status,
-  //         statusText: xhr.statusText
-  //       });
-  //     };
-  //     xhr.onerror = () => {
-  //       reject({
-  //         status: xhr.status,
-  //         statusText: xhr.statusText
-  //       });
-  //     }
-  //     xhr.send(JSON.stringify({
-  //       "apiVersion": null,
-  //       "expectUserChange": true,
-  //       "requests": [{"fn": "forum.categories"}]
-  //     }));
-  //   })
-  // }
   /** @returns {HTMLElement} */
   const getElementByClass = classname => document.querySelector("." + classname);
   const delay = ms => new Promise((resolve) => {
