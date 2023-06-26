@@ -13,10 +13,10 @@
       button.classList.add("red");
       button.style.marginRight = "8px";
       button.style.width = "2em";
-      button.onclick = () => {
+      button.onclick = async () => {
         let shouldSkip = true;
         if (cfg.skipConfirm ?? 0 > 0) {
-          shouldSkip = confirm("Are you sure you want to skip this question for now?");
+          shouldSkip = await fourth.Confirm("Confirm", "Are you sure you want to skip this question for now?");
         }
         if (shouldSkip) {
           fetch(`https://twocansandstring.com/api/answer/${id}/skip/${question}/1/0`);
