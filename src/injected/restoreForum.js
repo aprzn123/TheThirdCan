@@ -54,11 +54,10 @@
     //// Finally, construct the "users online" footer
     const usersOnlineDiv = document.createElement("div");
     usersOnlineDiv.id = "forum_main_usersonline"
-    usersOnlineDiv.style = "display:flex;align-items:center;";
     usersOnlineDiv.innerHTML = "Users on the forum:"
     for (let userId in usersOnline) {
       const user = usersOnline[userId];
-      usersOnlineDiv.innerHTML += `&nbsp;<img class="users_online_avatar" style="width:32px;margin-right:4px;" src="${user.avatar}"><a href="/users/${user.key}">${user.name}</a>`;
+      usersOnlineDiv.innerHTML += ` <img class="users_online_avatar" style="width:32px;vertical-align:middle;" src="${user.avatar}"> <a href="/users/${user.key}">${user.name}</a>`;
       if (userId < usersOnline.length - 1) usersOnlineDiv.innerHTML += ",";
     }
     document.getElementById("content_host").appendChild(usersOnlineDiv);
