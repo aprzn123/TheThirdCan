@@ -57,7 +57,7 @@
     usersOnlineDiv.innerHTML = "Users on the forum:"
     for (let userId in usersOnline) {
       const user = usersOnline[userId];
-      usersOnlineDiv.innerHTML += ` <img class="users_online_avatar" style="width:32px;vertical-align:middle;" src="${user.avatar}"> <a href="/users/${user.key}">${user.name}</a>`;
+      usersOnlineDiv.innerHTML += ` <img class="users_online_avatar" style="width:24px;vertical-align:middle;" src="${user.avatar}"> <a href="/users/${user.key}">${user.name}</a>`;
       if (userId < usersOnline.length - 1) usersOnlineDiv.innerHTML += ",";
     }
     document.getElementById("content_host").appendChild(usersOnlineDiv);
