@@ -8,5 +8,5 @@
   "stealAvatar": true,
   "answerFocus": true,
   "restoreForum": true,
-  "binoculars": true
+  "useBinoculars": true
 }

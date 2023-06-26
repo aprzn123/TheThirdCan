@@ -11,7 +11,8 @@ const tags = {
     "useHotkeys",
     "stealAvatar",
     "answerFocus",
-    "restoreForum"
+    "restoreForum",
+    "useBinoculars"
   ],
   radioTags: [
     "skipConfirm",
@@ -30,8 +31,8 @@ function loadSettings(tags, settings) {
   }
   for (const tag of tags.radioTags) {
     Array.from(document.getElementById(tag).children)
-         .filter(child => child.tagName === "INPUT" 
-                       && child.type === "radio" 
+         .filter(child => child.tagName === "INPUT"
+                       && child.type === "radio"
                        && settings[tag] === parseInt(child.dataset.enumerated)
          ).map(i => i.checked = true);
   }
@@ -44,8 +45,8 @@ function getSettingsFromHtml(tags) {
   }
   for (const tag of tags.radioTags) {
     out[tag] = parseInt(Array.from(document.getElementById(tag).children)
-                    .filter((child) => child.tagName === "INPUT" 
-                                       && child.type === "radio" 
+                    .filter((child) => child.tagName === "INPUT"
+                                       && child.type === "radio"
                                        && child.checked
                     )[0].dataset.enumerated);
   }
