@@ -6,9 +6,12 @@
  */
 fourth.Alert = function(title, content, buttons = []) {
   return new Promise((resolve, reject) => {
-    if (typeof title !== "string" || typeof content !== "string") {
+    if (typeof title !== "string" || (typeof content !== "string" && typeof content !== "undefined")) {
       reject("Alert popup fields must be a string");
       return;
+    } else if (typeof title === "string" && typeof content === "undefined") {
+      content = title;
+      title = "&nbsp;";
     }
     const bgEl = document.createElement("div");
     bgEl.style = "position:fixed;width:100%;height:100vh;top:0;left:0;background:rgba(0,0,0,0.7);";
