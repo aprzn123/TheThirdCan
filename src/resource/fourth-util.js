@@ -2,7 +2,7 @@
  * Creates a popup window that can be closed. Supports multiple buttons.
  * @param {string} title
  * @param {string} content
- * @param {{ text: string, color?: [string, string], callback: () => void }[]} buttons An array of buttons containing text and functions to run when the button is clicked. For more information view the `fourth` docs.
+ * @param {{ text: string, color?: [string, string], callback: () => any }[]} buttons An array of buttons containing text and functions to run when the button is clicked. For more information view the `fourth` docs.
  */
 fourth.Alert = function(title, content, buttons = []) {
   return new Promise((resolve, reject) => {
