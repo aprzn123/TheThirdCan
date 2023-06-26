@@ -5,7 +5,7 @@
   "showPronouns": true,
   "displayLatex": true,
   "useHotkeys" : false,
-  "stealAvatar": true,
+  "stealAvatar": false,
   "answerFocus": true,
   "restoreForum": true
 }
