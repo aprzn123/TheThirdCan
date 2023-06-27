@@ -42,9 +42,11 @@
         });
   }
 
-  const button = document.createElement("button");
-  button.innerText = "Steal Avatar";
   const followButton = document.querySelector("#content_host div > button");
-  followButton.parentElement.appendChild(button);
-  button.onclick = () => stealAvatar();
+  if (followButton.id.startsWith("follow_button")) {
+    const button = document.createElement("button");
+    button.innerText = "Steal Avatar";
+    followButton.parentElement.appendChild(button);
+    button.onclick = () => stealAvatar();
+  }
 }
