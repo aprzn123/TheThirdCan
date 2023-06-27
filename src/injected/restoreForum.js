@@ -54,6 +54,7 @@
     //// Finally, construct the "users online" footer
     const usersOnlineDiv = document.createElement("div");
     usersOnlineDiv.id = "forum_main_usersonline"
+    usersOnlineDiv.style.margin = "8px 0 0 8px";
     usersOnlineDiv.innerHTML = "Users on the forum:"
     for (let userId in usersOnline) {
       const user = usersOnline[userId];
