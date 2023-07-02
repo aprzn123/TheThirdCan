@@ -66,6 +66,11 @@ The first argument is an object where each key is the configuration option that 
 
 `fourth.GetUserToken()` Get the user's token if they are logged in if authentication is required. Should be used sparingly.
 
+`fourth.SaveAvatar(id, data, isActive = false)` Saves an avatar. `id` is the
+current user's ID; `data` is the image data; `isActive` determines whether the
+avatar is set as active after saving. Returns a Promise containing the response
+of the API call.
+
 ### Utility Functions
 
 #### `fourth.Alert(title, content, buttons)`
