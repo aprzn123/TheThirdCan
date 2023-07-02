@@ -13,6 +13,8 @@ Chrome: [Chrome Web Store](https://chrome.google.com/webstore/detail/the-third-c
 - Temporarily skip questions with the old Skip for Now button
 - Hotkeys for common actions on the answer page
 - Get the old forum homepage back with the "users online" indicator still intact
+- Re-implementation of theki's Binoculars
+- And more!
 
 ## Installation From Source
 If you would like to install the development version of The Third Can for testing purposes, then download or clone this repository, and then follow these instructions, depending on your browser.

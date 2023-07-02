@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "The Third Can",
-  "version": "0.1.0",
+  "version": "0.2.0",
 
   "description": "A suite of tools to improve the user experience on https://twocansandstring.com",
   "homepage_url": "https://github.com/aprzn123/TheThirdCan",
