@@ -7,5 +7,6 @@
   "useHotkeys" : false,
   "stealAvatar": false,
   "answerFocus": true,
-  "restoreForum": true
+  "restoreForum": true,
+  "useBinoculars": false
 }
