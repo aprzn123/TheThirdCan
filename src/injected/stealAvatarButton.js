@@ -22,24 +22,11 @@
 
   function stealAvatar() {
     const img = document.querySelector("#content_host div > img");
-    console.log(img);
     const data = drawImageToNewCanvas(img);
+    // there should be a way to cache the user's id so we do not have to pass an `id` parameter
+    // to API functions
     fourth.UserId()
-        .then((id) => {
-          fetch(`https://twocansandstring.com/drawing/api/${id}/saveimage/1/0/0`,
-            {
-              headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-              },
-              method: "POST",
-              body: JSON.stringify({
-                data,
-              }),
-            }
-          )
-              .then(() => console.log(data.length));
-        });
+        .then((id) => fourth.SaveAvatar(id, data));
   }
 
   const followButton = document.querySelector("#content_host div > button");
