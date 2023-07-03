@@ -21,8 +21,8 @@
     const usersOnline = (await fourth.Request("forum.onlinenow")).users;
 
     //// We need to link the appropriate stylesheets
-    addStyleSheet("common_twocans")
-    addStyleSheet("forum_category");
+    addStyleSheet("common_twocans");
+    addStyleSheet("forum_main");
 
     //// Get the page at /things/ to use as a template
     const r = await fetch("https://twocansandstring.com/forum/things");
@@ -30,34 +30,33 @@
     document.body.innerHTML = body.body.innerHTML;
     document.getElementById("dark_nav").innerHTML = "Forum";
     // Add search link
-    const a = document.createElement("div");
+    document.getElementById("content_host").innerHTML = '<div id="forum_main_options"></div><table id="forum_main_categories" border="0" cellspacing="0" cellpadding="5"><thead><tr style="font-weight:bold;"><td></td><td></td><td>Threads</td><td>Posts</td></tr></thead></table>'
+    const a = document.getElementById("forum_main_options");
     a.innerHTML = '<a href="https://twocansandstring.com/forum/search">Search Posts</a> | <a href="https://twocansandstring.com/forum/readall">Mark all posts as read</a>';
-    a.style.textAlign = "right";
-    document.getElementById("content_host").prepend(a);
 
     //// Now start reconstructing our categories from scratch
-    getElementByClass("forum_threads_table").innerHTML = '<div class="forum_threads_header" style="background:#0000;color:#000;"><div class="titlecol">&nbsp;</div><div class="viewscol">&nbsp;</div><div class="viewscol">Threads</div><div class="repliescol">Posts</div>';
+    const tbody = document.createElement("tbody");
     for (let category of categories) {
       const unreadIndicator = category.newThreads ? `<span style="font-weight:bold;color:#53a46e;font-size:10pt;">${category.newThreads} New</span>` : ""
-      const div = document.createElement("div");
-      div.className = "forum_threads_thread";
-      div.innerHTML = `<div class="titlecol">
-<div class="thread_title"><a href="/forum/${category.id}" style="font-weight:bold;">${category.name}</a></div>
-<div class="thread_preview_text">${category.description}</div>
-</div>
-<div class="viewscol">${unreadIndicator}</div>
-<div class="viewscol">${category.threads}</div>
-<div class="repliescol">${category.posts}</div>`
-      getElementByClass("forum_threads_table").appendChild(div);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>
+<div class="forum_main_catname"><a href="/forum/${category.id}">${category.name}</a></div>
+<div class="forum_main_catdesc">${category.description}</div>
+</td>
+<td>${unreadIndicator}</td>
+<td class="forum_main_thread_count">${category.threads}</td>
+<td class="forum_main_post_count">${category.posts}</td>`
+      tbody.appendChild(tr);
     }
+    document.getElementById("forum_main_categories").appendChild(tbody);
 
     //// Finally, construct the "users online" footer
     const usersOnlineDiv = document.createElement("div");
-    usersOnlineDiv.id = "forum_main_usersonline"
+    usersOnlineDiv.id = "forum_main_usersonline";
     usersOnlineDiv.innerHTML = "Users on the forum:"
     for (let userId in usersOnline) {
       const user = usersOnline[userId];
-      usersOnlineDiv.innerHTML += ` <img class="users_online_avatar" style="width:32px;vertical-align:middle;" src="${user.avatar}"> <a href="/users/${user.key}">${user.name}</a>`;
+      usersOnlineDiv.innerHTML += ` <img class="users_online_avatar" src="${user.avatar}"> <a href="/users/${user.key}">${user.name}</a>`;
       if (userId < usersOnline.length - 1) usersOnlineDiv.innerHTML += ",";
     }
     document.getElementById("content_host").appendChild(usersOnlineDiv);

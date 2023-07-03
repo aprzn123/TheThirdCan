@@ -109,4 +109,4 @@ fourth.Alert(
 })
 ```
 
-`fourth.Confirm(title, content)` Creates an alert (see above) containing two buttons, one labeled "Yes" (returning `true`) and the other labeled "No" (returning `false`).
+`fourth.Confirm(title, content)` Creates an alert containing two buttons, one labeled "Yes" (returning `true`) and the other labeled "No" (returning `false`).
