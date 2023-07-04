@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+web-ext build -s src/ --overwrite-dest
