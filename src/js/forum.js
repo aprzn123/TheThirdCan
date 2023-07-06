@@ -19,6 +19,12 @@ function injectPronouns(third) {
   }
 }
 
+function resizeImages() {
+  for (let img of document.querySelectorAll(".forum_post_text_container img")) {
+    if (img.naturalWidth > 640) img.style.width = "100%";
+  }
+}
+
 (async() => {
   const src = browser.runtime.getURL("resource/third.js");
   const third = (await import(src)).default;
@@ -33,5 +39,8 @@ function injectPronouns(third) {
   const cfg = await third.GetSettings();
   if (cfg.showPronouns) {
     injectPronouns(third);
+  }
+  if (cfg.resizeImages) {
+    resizeImages();
   }
 })();
