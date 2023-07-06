@@ -46,3 +46,27 @@ fourth.GetUserToken = function() {
   return c.pop().split(";").shift();
   // Solution sourced from Stack Overflow https://stackoverflow.com/a/15724300
 }
+
+/**
+ * Saves an avatar.
+ * @param {number} id The current user's ID
+ * @param {string} data The avatar image data
+ * @param {boolean} isActive If `true`, save as current avatar
+ * @returns {Promise<Response>} The response from the API call
+ */
+fourth.SaveAvatar = function(id, data, isActive = false) {
+  const isActiveParam = isActive ? 1 : 0;
+  return fetch(
+    `https://twocansandstring.com/drawing/api/${id}/saveimage/${isActiveParam}/0/0`,
+    {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        data,
+      }),
+    }
+  );
+}
