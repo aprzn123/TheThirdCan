@@ -27,6 +27,7 @@ fourth.Alert = function(title, content, buttons = []) {
     closeEl.style = "font-weight:bold;position:absolute;display:block;top:8.5%;right:5%;color:white;";
     closeEl.addEventListener("click", () => {
       bgEl.remove();
+      document.body.style.overflow = "scroll" // should be made less brute-forcey
       resolve(false);
     });
 
@@ -43,11 +44,13 @@ fourth.Alert = function(title, content, buttons = []) {
         b.style.marginRight = "0.25em";
         b.onclick = () => {
           bgEl.remove();
+          document.body.style.overflow = "scroll" // should be made less brute-forcey
           resolve(button.callback());
         }
         alertEl.appendChild(b);
       }
     } else {
+      document.body.style.overflow = "scroll" // should be made less brute-forcey
       resolve(true);
     }
   })
