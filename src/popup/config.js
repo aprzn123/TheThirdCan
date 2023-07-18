@@ -12,7 +12,8 @@ const tags = {
     "stealAvatar",
     "answerFocus",
     "restoreForum",
-    "useBinoculars"
+    "useBinoculars",
+    "resizeImages"
   ],
   radioTags: [
     "skipConfirm",
