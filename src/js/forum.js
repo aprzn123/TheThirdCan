@@ -19,12 +19,6 @@ function injectPronouns(third) {
   }
 }
 
-function resizeImages() {
-  for (let img of document.querySelectorAll(".forum_post_text_container img")) {
-    if (img.naturalWidth > 640) img.style.width = "100%";
-  }
-}
-
 (async() => {
   const src = browser.runtime.getURL("resource/third.js");
   const third = (await import(src)).default;
@@ -41,6 +35,10 @@ function resizeImages() {
     injectPronouns(third);
   }
   if (cfg.resizeImages) {
-    resizeImages();
+    // is there a way to streamline this?
+    const e = document.createElement("style");
+    e.setAttribute("type", "text/css");
+    e.innerHTML = ".forum_post_text_container img { max-width: 100%; }";
+    document.head.appendChild(e);
   }
 })();
