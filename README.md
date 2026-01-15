@@ -1,6 +1,8 @@
 # TheThirdCan
 A browser extension designed to improve https://twocansandstring.com
 
+**Unfortunately, this extension is currently deprecated due to the big TwoCans rewrite.**
+
 ## Installation
 Firefox: [Firefox Add-ons Page](https://addons.mozilla.org/en-US/firefox/addon/the-third-can/)
 
