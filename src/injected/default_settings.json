@@ -8,5 +8,6 @@
   "stealAvatar": false,
   "answerFocus": true,
   "restoreForum": true,
-  "useBinoculars": false
+  "useBinoculars": false,
+  "resizeImages": true
 }

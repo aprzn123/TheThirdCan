@@ -34,4 +34,11 @@ function injectPronouns(third) {
   if (cfg.showPronouns) {
     injectPronouns(third);
   }
+  if (cfg.resizeImages) {
+    // is there a way to streamline this?
+    const e = document.createElement("style");
+    e.setAttribute("type", "text/css");
+    e.innerHTML = ".forum_post_text_container img { max-width: 100%; }";
+    document.head.appendChild(e);
+  }
 })();
